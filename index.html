@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Parthasarathy T — Forward-Deployed Infra & AI Engineer</title>
+<meta name="description" content="Senior Infrastructure & Forward-Deployed Engineer specializing in GCP, production RAG systems, and MLOps for FinTech and Healthcare." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="avatar-wrap">
+        <img src="assets/profile.jpg" alt="Portrait of Parthasarathy T" class="avatar" />
+      </div>
+      <h1 class="name">Parthasarathy T</h1>
+      <p class="role-tag">Forward-Deployed<br />Infra &amp; AI Engineer</p>
+      <div class="status-pill">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Open to select engagements
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Section navigation">
+      <a href="#home" class="nav-link" data-section="home">Home</a>
+      <a href="#about" class="nav-link" data-section="about">About</a>
+      <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+      <a href="#stack" class="nav-link" data-section="stack">Stack</a>
+      <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="meta-line">Bengaluru, IN <span class="dot-sep">·</span> GCP-certified</div>
+      <div class="social-row">
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener" aria-label="LinkedIn">IN</a>
+        <a href="mailto:you@example.com" aria-label="Email">EM</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Switch color theme">
+        <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
+        <span class="theme-toggle-label" id="themeToggleLabel">Dark</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <section id="home" class="section hero">
+      <p class="eyebrow">// forward-deployed engineer</p>
+      <h2 class="hero-headline">
+        I turn ML prototypes into production infrastructure that survives contact with real clients.
+      </h2>
+      <p class="hero-sub">
+        5+ years architecting, deploying, and scaling systems on Google Cloud — sitting between
+        data scientists, architects, and product owners so what gets built in a notebook
+        actually ships, holds up under load, and stays within budget.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+
+      <div class="pipeline" role="img" aria-label="Deployment pipeline: Ingest, Train, Deploy, Scale">
+        <div class="pipeline-track" aria-hidden="true"><span class="pipeline-pulse"></span></div>
+        <div class="pipeline-stage">
+          <span class="stage-label">Ingest</span>
+          <span class="stage-detail">Airflow · pgvector</span>
+        </div>
+        <div class="pipeline-stage">
+          <span class="stage-label">Train</span>
+          <span class="stage-detail">Vertex AI · MLflow</span>
+        </div>
+        <div class="pipeline-stage">
+          <span class="stage-label">Deploy</span>
+          <span class="stage-detail">GKE · Cloud Run</span>
+        </div>
+        <div class="pipeline-stage">
+          <span class="stage-label">Scale</span>
+          <span class="stage-detail">FinOps · Autoscale</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <p class="section-eyebrow">01 · About</p>
+      <h3 class="section-title">The bridge between prototype and production.</h3>
+      <p class="about-copy">
+        I'm a Senior Infrastructure &amp; Forward-Deployed Engineer with 5+ years of experience
+        across FinTech and Healthcare, currently at Publicis Sapient. My work sits at the seam
+        where a data scientist's model, an architect's design, and a client's constraints all
+        have to agree with each other — and where someone has to own the outcome once it's live.
+        I've spent my career on the GCP side of that seam: provisioning the compute, wiring the
+        pipelines, and keeping the bill honest.
+      </p>
+
+      <div class="expertise-grid">
+        <div class="expertise-card">
+          <span class="expertise-tag">GCP</span>
+          <h4>GCP Mastery</h4>
+          <p>Compute Engine, GKE, Cloud Run, and Cloud Run Functions — provisioned, secured, and run at production scale across four GCP Professional certifications.</p>
+        </div>
+        <div class="expertise-card">
+          <span class="expertise-tag">FinOps</span>
+          <h4>Cost Optimization</h4>
+          <p>FinOps strategy for AI workloads — right-sizing CPU/GPU/TPU allocation so inference and training spend scales with usage, not with headroom.</p>
+        </div>
+        <div class="expertise-card">
+          <span class="expertise-tag">Compute</span>
+          <h4>GPU/TPU Orchestration</h4>
+          <p>Workload allocation across CPU, GPU, and TPU tiers for training and serving, matched to latency and throughput requirements per workload.</p>
+        </div>
+        <div class="expertise-card">
+          <span class="expertise-tag">People</span>
+          <h4>Cross-Functional Leadership</h4>
+          <p>Embedded with data scientists, ML engineers, architects, and product owners to translate research code into systems a client can depend on.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section projects">
+      <p class="section-eyebrow">02 · Featured work</p>
+      <h3 class="section-title">Systems that made it to production.</h3>
+
+      <article class="project-card">
+        <div class="project-head">
+          <h4>Automated Claims Processing</h4>
+          <span class="project-domain">Healthcare &amp; Insurance · client confidential</span>
+        </div>
+        <p class="project-desc">
+          Built and deployed an image-recognition pipeline that reads submitted claims and
+          triggers instant customer reimbursement, replacing a manual review step that had
+          been the primary bottleneck in the claims lifecycle.
+        </p>
+        <div class="project-pipeline">
+          <span class="pipeline-chip">Ingest: claim images</span>
+          <span class="pipeline-chip">Train: CV model</span>
+          <span class="pipeline-chip">Deploy: serving endpoint</span>
+          <span class="pipeline-chip">Scale: instant reimbursement</span>
+        </div>
+        <div class="tag-row">
+          <span class="tech-tag">GCP</span>
+          <span class="tech-tag">Image Recognition</span>
+          <span class="tech-tag">Vertex AI</span>
+          <span class="tech-tag">Cloud Run</span>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-head">
+          <h4>Moneycontrol — Infrastructure Modernization</h4>
+          <span class="project-domain">Media &amp; Finance</span>
+        </div>
+        <p class="project-desc">
+          Modernized core data and ML infrastructure end to end: stood up Airflow for
+          orchestration, MLflow for model lifecycle tracking, and a production RAG stack
+          backed by multiple vector databases to support retrieval-driven features at scale.
+        </p>
+        <div class="project-pipeline">
+          <span class="pipeline-chip">Ingest: Airflow DAGs</span>
+          <span class="pipeline-chip">Train: MLflow tracking</span>
+          <span class="pipeline-chip">Deploy: RAG stack</span>
+          <span class="pipeline-chip">Scale: vector DBs</span>
+        </div>
+        <div class="tag-row">
+          <span class="tech-tag">Apache Airflow</span>
+          <span class="tech-tag">MLflow</span>
+          <span class="tech-tag">LangChain</span>
+          <span class="tech-tag">Vector Databases</span>
+        </div>
+      </article>
+    </section>
+
+    <section id="stack" class="section stack">
+      <p class="section-eyebrow">03 · Tech stack</p>
+      <h3 class="section-title">Tools I build and deploy with.</h3>
+
+      <div class="stack-groups">
+        <div class="stack-group">
+          <h4 class="stack-group-title">Cloud &amp; Infrastructure</h4>
+          <div class="stack-chips">
+            <span>GCP Compute Engine</span><span>GKE</span><span>Cloud Run</span>
+            <span>Cloud Run Functions</span><span>Terraform</span><span>GitOps</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h4 class="stack-group-title">AI &amp; RAG</h4>
+          <div class="stack-chips">
+            <span>Vertex AI</span><span>LangChain</span><span>LangGraph</span>
+            <span>LangCore</span><span>Vector Databases</span><span>Multi-modal AI</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h4 class="stack-group-title">MLOps &amp; Orchestration</h4>
+          <div class="stack-chips">
+            <span>MLflow</span><span>Apache Airflow</span><span>Automated Training Pipelines</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h4 class="stack-group-title">Core</h4>
+          <div class="stack-chips">
+            <span>Python</span><span>CPU/GPU/TPU Allocation</span><span>FinOps</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <p class="section-eyebrow">04 · Contact</p>
+      <h3 class="section-title">Let's talk about your deployment.</h3>
+      <p class="contact-copy">
+        If you have a model that works in a notebook and needs to work in production —
+        that's the conversation I want to have.
+      </p>
+      <a href="mailto:you@example.com" class="btn btn-primary btn-large">you@example.com</a>
+      <div class="social-row contact-socials">
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p>Built with HTML, CSS &amp; JS · © 2026 Parthasarathy T</p>
+    </footer>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
