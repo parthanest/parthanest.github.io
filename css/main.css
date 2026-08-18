@@ -1,0 +1,169 @@
+/* =========================================================================
+   css/main.css — Base styles, design tokens (CSS variables) & reset
+   Futuristic dark-mode aesthetic. Light theme retained as an option.
+   ========================================================================= */
+
+:root {
+  /* ---- Core palette (dark / futuristic default) ---- */
+  --bg:            #070A12;      /* deep space background */
+  --bg-2:          #0B1020;
+  --surface:       rgba(20, 26, 42, 0.55);   /* glassmorphism base */
+  --surface-solid: #10162A;
+  --border:        rgba(120, 160, 255, 0.14);
+  --border-strong: rgba(120, 160, 255, 0.30);
+
+  --text:      #EAF0FF;
+  --text-dim:  #A9B4D0;
+  --text-muted:#6C7A9C;
+
+  /* ---- Accents (electric cyan + violet glow) ---- */
+  --accent:        #4FE3FF;      /* primary cyan */
+  --accent-2:      #A56BFF;      /* violet */
+  --accent-soft:   rgba(79, 227, 255, 0.12);
+  --accent-2-soft: rgba(165, 107, 255, 0.14);
+  --glow:          rgba(79, 227, 255, 0.55);
+  --glow-2:        rgba(165, 107, 255, 0.55);
+
+  /* ---- Typography ---- */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body:    'IBM Plex Sans', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+
+  /* ---- Metrics ---- */
+  --sidebar-w: 292px;
+  --radius:    16px;
+  --radius-sm: 10px;
+  --transition: 0.25s ease;
+}
+
+/* ---- Light theme override ---- */
+html[data-theme="light"] {
+  --bg:            #EDF1FA;
+  --bg-2:          #E3E9F6;
+  --surface:       rgba(255, 255, 255, 0.65);
+  --surface-solid: #FFFFFF;
+  --border:        rgba(40, 70, 140, 0.14);
+  --border-strong: rgba(40, 70, 140, 0.28);
+  --text:          #10182B;
+  --text-dim:      #3C4763;
+  --text-muted:    #6A7690;
+  --accent:        #0E86C4;
+  --accent-2:      #7A3FE0;
+  --accent-soft:   rgba(14, 134, 196, 0.10);
+  --accent-2-soft: rgba(122, 63, 224, 0.10);
+  --glow:          rgba(14, 134, 196, 0.35);
+  --glow-2:        rgba(122, 63, 224, 0.30);
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Atmospheric radial glows behind everything */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(60% 50% at 15% 10%, var(--accent-2-soft), transparent 70%),
+    radial-gradient(55% 45% at 90% 20%, var(--accent-soft), transparent 70%),
+    radial-gradient(70% 60% at 50% 100%, var(--accent-2-soft), transparent 75%);
+  pointer-events: none;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.015em; line-height: 1.15; }
+
+/* ---- Layout shell ---- */
+.layout { display: flex; min-height: 100vh; }
+
+.main {
+  margin-left: var(--sidebar-w);
+  width: calc(100% - var(--sidebar-w));
+  padding: 0 64px;
+}
+
+.section {
+  padding: 104px 0;
+  border-bottom: 1px solid var(--border);
+  max-width: 860px;
+}
+.section:last-of-type { border-bottom: none; }
+
+/* ---- Section headers ---- */
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  margin-bottom: 32px;
+  max-width: 620px;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 13px 24px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: all var(--transition);
+  display: inline-block;
+  position: relative;
+}
+.btn-primary {
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: #07101E;
+  font-weight: 500;
+  box-shadow: 0 0 0 1px var(--border-strong), 0 8px 30px -8px var(--glow);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px -8px var(--glow); }
+.btn-ghost { border-color: var(--border-strong); color: var(--text); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 20px -6px var(--glow); }
+.btn-large { padding: 17px 30px; font-size: 0.95rem; }
+
+/* ---- Mobile nav toggle ---- */
+.mobile-nav-toggle {
+  display: none;
+  position: fixed; top: 18px; right: 18px; z-index: 100;
+  width: 44px; height: 44px;
+  background: var(--surface); backdrop-filter: blur(12px);
+  border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+}
+.mobile-nav-toggle span { width: 20px; height: 2px; background: var(--text); transition: all var(--transition); }
+
+/* ---- Footer ---- */
+.site-footer { padding: 40px 0 72px; }
+.site-footer p { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); }
+
+/* ---- Responsive ---- */
+@media (max-width: 960px) {
+  .mobile-nav-toggle { display: flex; }
+  .main { margin-left: 0; width: 100%; padding: 0 26px; }
+  .section { padding: 76px 0; }
+}
+@media (max-width: 480px) {
+  .main { padding: 0 20px; }
+}
