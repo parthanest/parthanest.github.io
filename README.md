@@ -1,55 +1,76 @@
 # parthanest.github.io
 
-A modular, data-driven, futuristic personal portfolio for **Parthasarathy T** — Forward-Deployed Engineer (GCP · DevOps · MLOps).
+A modular, data-driven, futuristic personal portfolio for **Parthasarathy T** — Forward-Deployed Engineer (GCP · DevOps · MLOps) — now with an **AI Tools** rail featuring an automated **CV Enhancer** powered by GitHub Actions + Gemini.
 
-## ✨ What's inside
+## ✨ Features
 
-- **Dark, futuristic theme** — glassmorphism, glowing borders, animated gradient tagline, atmospheric floating particles.
-- **Circular profile photo** with a rotating conic-gradient ring + breathing pulse glow.
-- **Fully data-driven** — all content lives in `data/*.js`. Add a project/skill/award by editing a data file; the UI updates itself.
-- **Scroll-triggered reveals** (IntersectionObserver), scroll-spy nav, dark/light toggle, and a mobile drawer.
-- **Accessible** — respects `prefers-reduced-motion`, semantic landmarks, ARIA labels.
+- **Dark futuristic theme** — glassmorphism, glowing rings, animated tagline, atmospheric particles.
+- **Fully data-driven** content in `data/*.js`.
+- **AI Tools rail** — a right-hand column hosting the CV Enhancer (email + prompt + file upload, loading states, toast notifications).
+- **CI/CD automation** — the form fires a `repository_dispatch` event that runs a GitHub Actions pipeline calling Gemini.
 
 ## 📁 Structure
 
 ```
 portfolio/
-├── index.html                 # Landing structure (semantic shell only)
+├── index.html
 ├── css/
-│   ├── main.css               # Tokens (CSS variables), reset, layout, buttons
-│   ├── animations.css         # Keyframes: ring pulse/spin, particles, reveals
-│   └── components.css         # Sidebar, cards, chips, glass panels
+│   ├── main.css              # tokens, reset, layout (leaves room for AI rail)
+│   ├── animations.css        # keyframes: ring, particles, spinner, toast
+│   ├── components.css        # sidebar, cards, chips
+│   └── ai-tools.css          # AI rail, CV form, dropzone, toasts   ← NEW
 ├── js/
-│   ├── main.js                # Theme, mobile nav, scroll-spy, reveals, particles
-│   └── dynamic-content.js     # Renders sections from the data files
+│   ├── main.js               # theme, nav, scroll-spy, reveals, particles
+│   ├── dynamic-content.js    # renders sections from data files
+│   └── cv-enhancer.js        # form handler + repository_dispatch    ← NEW
 ├── data/
-│   ├── expertise.js           # Expertise cards + full grouped tech stack
-│   ├── achievements.js        # Metrics, certifications, awards, publications
-│   └── projects.js            # Project cards (title, tech, highlights)
-└── assets/
-    └── images/
-        └── profile.png        # Your profile picture (placeholder included)
+│   ├── expertise.js
+│   ├── achievements.js
+│   └── projects.js
+├── assets/images/profile.png
+├── .github/workflows/
+│   └── cv-enhancer.yml        # Actions pipeline (Gemini)            ← NEW
+└── scripts/
+    ├── process_cv.py          # Gemini CV rewriter                  ← NEW
+    └── cv-enhancer-proxy.worker.js  # optional secure token proxy   ← NEW
 ```
 
-## 🚀 Deploy to GitHub Pages
+## 🤖 CV Enhancer — setup
 
-1. Push these files to your `parthanest.github.io` repo root.
-2. **Settings → Pages → Source: `main` / root.**
-3. Visit `https://parthanest.github.io`.
+### 1. Repository secrets
+`Settings → Secrets and variables → Actions`:
 
-> No build step, no dependencies — pure HTML/CSS/JS, works directly on Pages.
-
-## 🖊️ How to update content (no HTML edits)
-
-| To change… | Edit… |
+| Secret | Purpose |
 |---|---|
-| Projects | `data/projects.js` |
-| Skills / stack / expertise cards | `data/expertise.js` |
-| Certifications, awards, metrics, publications | `data/achievements.js` |
-| About / hero copy | `index.html` (About & Hero sections only) |
-| Colors / fonts / glow | CSS variables at the top of `css/main.css` |
+| `LLM_API_KEY` | Your **Gemini API key** (mapped to `GEMINI_API_KEY` in the workflow). |
+| `GH_PAT` | Fine-grained PAT used by the **dispatcher** (proxy/front-end), *not* the workflow. Scope: `Contents: Read/Write` + `Metadata: Read` on this repo only. |
+
+### 2. Token handling — pick a mode in `js/cv-enhancer.js`
+
+> ⚠️ **A PAT in front-end JS is public.** Never commit a real token to a public GitHub Pages site.
+
+- **`mode: "proxy"` (recommended, default).** Deploy `scripts/cv-enhancer-proxy.worker.js` as a Cloudflare Worker (or Vercel/Netlify/Cloud Run function). It stores `GH_PAT` as a server secret and forwards the dispatch. Set `proxyEndpoint` to its URL.
+- **`mode: "direct"` (dev / private repo only).** Calls GitHub directly with a throwaway fine-grained token. For local testing only.
+
+### 3. Flow
+
+```
+Browser form ──base64──▶ repository_dispatch ("cv-enhancer-request")
+        │                         │
+        └─(proxy holds GH_PAT)    ▼
+                        GitHub Actions: cv-enhancer.yml
+                          → decode file
+                          → scripts/process_cv.py  (GEMINI_API_KEY = LLM_API_KEY)
+                          → Gemini rewrites CV
+                          → upload "enhanced-cv" artifact
+                          → run-result email to your GitHub account
+```
+
+## 🚀 Deploy
+
+Push to `parthanest.github.io` repo root → **Settings → Pages → Source: main/root**.
+The static site needs no build. The Action runs on GitHub's runners.
 
 ## 🖼️ Profile photo
 
-Replace `assets/images/profile.png` with your own square-ish photo (any aspect ratio works —
-`object-fit: cover` keeps it perfectly circular). The included file is a placeholder.
+Replace `assets/images/profile.png` with your own — `object-fit: cover` keeps it circular.

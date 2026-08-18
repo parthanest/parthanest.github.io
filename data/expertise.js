@@ -10,7 +10,6 @@
 window.PortfolioData = window.PortfolioData || {};
 
 window.PortfolioData.expertise = {
-  /* ---- Highlighted expertise cards (shown in the About / Expertise grid) ---- */
   cards: [
     {
       tag: "Cloud Systems",
@@ -34,7 +33,6 @@ window.PortfolioData.expertise = {
     }
   ],
 
-  /* ---- Full tech-stack, grouped by category (shown in the Stack section) ---- */
   stack: [
     {
       group: "Cloud & Compute",

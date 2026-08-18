@@ -6,7 +6,6 @@
   <title>Parthasarathy T — Forward-Deployed Engineer | GCP, DevOps & MLOps</title>
   <meta name="description" content="Parthasarathy T — Forward-Deployed Engineer specializing in Google Cloud, DevOps, MLOps/LLMOps and production infrastructure across FinTech, Healthcare and Media." />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -15,20 +14,19 @@
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/ai-tools.css" />
 </head>
 <body>
 
-  <!-- Mobile nav toggle -->
   <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 
   <div class="layout">
 
-    <!-- ============================= SIDEBAR ============================= -->
+    <!-- ============================= LEFT SIDEBAR ============================= -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-top">
-        <!-- Circular profile picture with glowing, pulsing, rotating ring -->
         <div class="avatar-ring">
           <div class="avatar-wrap">
             <img src="assets/images/profile.png" alt="Portrait of Parthasarathy T" class="avatar" />
@@ -70,11 +68,9 @@
     <!-- ============================= MAIN ============================= -->
     <main class="main">
 
-      <!-- ---------- HERO / PROFILE FIRST ---------- -->
       <section id="home" class="section hero reveal">
         <p class="eyebrow">// forward-deployed engineer</p>
         <h2 class="hero-headline">Parthasarathy&nbsp;T</h2>
-        <!-- Best tagline placed directly under the name -->
         <p class="hero-tagline">I engineer the bridge where prototypes learn to survive production.</p>
         <p class="hero-sub">
           Forward-Deployed Engineer with 5 years embedded inside enterprise client teams —
@@ -87,29 +83,15 @@
           <a href="#contact" class="btn btn-ghost">Get in touch</a>
         </div>
 
-        <!-- Deployment pipeline diagram -->
         <div class="pipeline" role="img" aria-label="Deployment pipeline: Ingest, Train, Deploy, Scale">
           <div class="pipeline-track" aria-hidden="true"><span class="pipeline-pulse"></span></div>
-          <div class="pipeline-stage">
-            <span class="stage-label">Ingest</span>
-            <span class="stage-detail">Airflow · pgvector</span>
-          </div>
-          <div class="pipeline-stage">
-            <span class="stage-label">Train</span>
-            <span class="stage-detail">Vertex AI · MLflow</span>
-          </div>
-          <div class="pipeline-stage">
-            <span class="stage-label">Deploy</span>
-            <span class="stage-detail">GKE · Cloud Run</span>
-          </div>
-          <div class="pipeline-stage">
-            <span class="stage-label">Scale</span>
-            <span class="stage-detail">FinOps · Autoscale</span>
-          </div>
+          <div class="pipeline-stage"><span class="stage-label">Ingest</span><span class="stage-detail">Airflow · pgvector</span></div>
+          <div class="pipeline-stage"><span class="stage-label">Train</span><span class="stage-detail">Vertex AI · MLflow</span></div>
+          <div class="pipeline-stage"><span class="stage-label">Deploy</span><span class="stage-detail">GKE · Cloud Run</span></div>
+          <div class="pipeline-stage"><span class="stage-label">Scale</span><span class="stage-detail">FinOps · Autoscale</span></div>
         </div>
       </section>
 
-      <!-- ---------- ABOUT ---------- -->
       <section id="about" class="section about reveal">
         <p class="section-eyebrow">01 · About</p>
         <h3 class="section-title">The bridge between prototype and production.</h3>
@@ -126,57 +108,42 @@
         </p>
       </section>
 
-      <!-- ---------- EXPERTISE (rendered from data/expertise.js) ---------- -->
       <section id="expertise" class="section expertise reveal">
         <p class="section-eyebrow">02 · Expertise</p>
         <h3 class="section-title">Where I go deep.</h3>
-        <div class="expertise-grid stagger" id="expertise-grid">
-          <!-- injected by dynamic-content.js -->
-        </div>
+        <div class="expertise-grid stagger" id="expertise-grid"></div>
       </section>
 
-      <!-- ---------- ACHIEVEMENTS (rendered from data/achievements.js) ---------- -->
       <section id="achievements" class="section achievements reveal">
         <p class="section-eyebrow">03 · Achievements</p>
         <h3 class="section-title">Milestones, metrics & recognition.</h3>
-
-        <div class="metrics-grid stagger" id="metrics-grid"><!-- injected --></div>
-
+        <div class="metrics-grid stagger" id="metrics-grid"></div>
         <div class="ach-block">
           <p class="ach-block-title">Certifications</p>
-          <div class="cert-list stagger" id="cert-list"><!-- injected --></div>
+          <div class="cert-list stagger" id="cert-list"></div>
         </div>
-
         <div class="ach-block">
           <p class="ach-block-title">Awards & Recognition</p>
-          <div class="award-list stagger" id="award-list"><!-- injected --></div>
+          <div class="award-list stagger" id="award-list"></div>
         </div>
-
         <div class="ach-block">
           <p class="ach-block-title">Publications</p>
-          <div class="pub-list stagger" id="pub-list"><!-- injected --></div>
+          <div class="pub-list stagger" id="pub-list"></div>
         </div>
       </section>
 
-      <!-- ---------- PROJECTS (rendered from data/projects.js) ---------- -->
       <section id="projects" class="section projects reveal">
         <p class="section-eyebrow">04 · Featured work</p>
         <h3 class="section-title">Systems that made it to production.</h3>
-        <div class="stagger" id="projects-list">
-          <!-- injected by dynamic-content.js -->
-        </div>
+        <div class="stagger" id="projects-list"></div>
       </section>
 
-      <!-- ---------- STACK (rendered from data/expertise.js) ---------- -->
       <section id="stack" class="section stack reveal">
         <p class="section-eyebrow">05 · Tech stack</p>
         <h3 class="section-title">Tools I build and deploy with.</h3>
-        <div class="stack-groups stagger" id="stack-groups">
-          <!-- injected by dynamic-content.js -->
-        </div>
+        <div class="stack-groups stagger" id="stack-groups"></div>
       </section>
 
-      <!-- ---------- CONTACT ---------- -->
       <section id="contact" class="section contact reveal">
         <p class="section-eyebrow">06 · Contact</p>
         <h3 class="section-title">Let's talk about your deployment.</h3>
@@ -197,15 +164,86 @@
       </footer>
 
     </main>
+
+    <!-- ============================= RIGHT: AI TOOLS RAIL ============================= -->
+    <aside class="ai-rail" id="aiRail" aria-label="AI Tools">
+      <div class="ai-rail-head">
+        <span class="ai-rail-badge">AI Tools</span>
+      </div>
+      <h3>Automation Lab</h3>
+      <p class="ai-rail-sub">Live tools powered by GitHub Actions + Gemini. Everything runs in a CI pipeline — no server to babysit.</p>
+
+      <!-- ---------- CV ENHANCER TOOL ---------- -->
+      <div class="tool-card">
+        <div class="tool-card-head">
+          <div class="tool-icon" aria-hidden="true">🧠</div>
+          <div class="tool-title">CV Enhancer</div>
+        </div>
+        <p class="tool-desc">
+          Upload your CV and tell Gemini how to sharpen it. A GitHub Actions pipeline
+          rewrites it and attaches the result as a downloadable artifact.
+        </p>
+
+        <form class="cv-form" id="cvForm" novalidate>
+          <!-- Email -->
+          <div class="field">
+            <label for="cvEmail">Email <span class="req">*</span></label>
+            <input type="email" id="cvEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+
+          <!-- Prompt -->
+          <div class="field">
+            <label for="cvPrompt">Enhancement request <span class="req">*</span></label>
+            <textarea id="cvPrompt" name="prompt" placeholder="e.g. Tailor my CV for a Senior Cloud Engineer role focusing on AWS and Kubernetes." required></textarea>
+          </div>
+
+          <!-- File upload / dropzone -->
+          <div class="field">
+            <label for="cvFile">CV file <span class="req">*</span></label>
+            <div class="file-drop" id="cvDrop">
+              <input type="file" id="cvFile" name="file" accept=".pdf,.docx,.txt" required />
+              <div class="file-drop-icon" aria-hidden="true">📎</div>
+              <div class="file-drop-text">Drag &amp; drop or click to upload</div>
+              <div class="file-drop-hint">.pdf · .docx · .txt — max 5&nbsp;MB</div>
+            </div>
+            <div class="file-chosen" id="cvFileChosen" aria-live="polite"></div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="cv-submit" id="cvSubmit">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="label">Enhance my CV</span>
+          </button>
+
+          <p class="cv-status info" id="cvStatus" role="status" aria-live="polite"></p>
+        </form>
+
+        <!-- How it works -->
+        <div class="ai-flow">
+          <p class="ai-flow-title">How it works</p>
+          <div class="ai-flow-step"><span class="ai-flow-num">1</span><span>Your file is base64-encoded in the browser.</span></div>
+          <div class="ai-flow-step"><span class="ai-flow-num">2</span><span>A <code>repository_dispatch</code> event triggers GitHub Actions.</span></div>
+          <div class="ai-flow-step"><span class="ai-flow-num">3</span><span>Gemini (via <code>LLM_API_KEY</code>) rewrites the CV.</span></div>
+          <div class="ai-flow-step"><span class="ai-flow-num">4</span><span>The enhanced CV is saved as a run artifact &amp; emailed to you.</span></div>
+        </div>
+
+        <div class="ai-note-box">
+          <strong>Heads up:</strong> the dispatch token is handled by a serverless proxy,
+          never exposed in the browser. Configure the endpoint in <code>js/cv-enhancer.js</code>.
+        </div>
+      </div>
+    </aside>
   </div>
 
+  <!-- Mobile FAB to open the AI rail -->
+  <button class="ai-fab" id="aiFab" aria-label="Open AI Tools">🧠</button>
+
   <!-- ============================= SCRIPTS ============================= -->
-  <!-- Data layer (load first — populates window.PortfolioData) -->
   <script src="data/expertise.js"></script>
   <script src="data/achievements.js"></script>
   <script src="data/projects.js"></script>
-  <!-- Renderers + interactions -->
   <script src="js/dynamic-content.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/cv-enhancer.js"></script>
 </body>
 </html>

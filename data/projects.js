@@ -1,15 +1,6 @@
 /* =========================================================================
-   data/projects.js
-   -------------------------------------------------------------------------
-   Every project rendered as a card in the Projects section.
+   data/projects.js  — every project rendered as a card in the Projects section.
    To add a project: copy an object below, edit the fields, done.
-     - title        : project name
-     - domain       : industry / client context
-     - period       : optional timeframe or role note
-     - description  : 1–3 sentence summary of what you built
-     - pipeline     : optional stage chips (Ingest / Train / Deploy / Scale)
-     - tech         : array of technologies used
-     - links        : optional { label: url } pairs (e.g. repo, article, demo)
    ========================================================================= */
 
 window.PortfolioData = window.PortfolioData || {};
