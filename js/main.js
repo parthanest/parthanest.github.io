@@ -1,102 +1,93 @@
 /* =========================================================================
-   js/main.js — theme toggle, mobile nav, scroll-spy, reveals, particles
+   js/main.js
+   -------------------------------------------------------------------------
+   - Provides the project registry (window.registerProject) that each
+     data/projects/project-N.js file calls to self-register.
+   - Handles theme toggle, mobile nav, scroll-spy and reveal animations.
    ========================================================================= */
 
 (function () {
   "use strict";
+
+  /* ---- Project registry ---------------------------------------------
+     Each project file calls window.registerProject({...}). We collect
+     them here so dynamic-content.js can render them (sorted by order).   */
+  window.PortfolioData = window.PortfolioData || {};
+  window.PortfolioData.projects = window.PortfolioData.projects || [];
+  window.registerProject = function (project) {
+    window.PortfolioData.projects.push(project);
+  };
+
   const root = document.documentElement;
 
-  /* THEME */
-  const themeToggle = document.getElementById("themeToggle");
-  const themeLabel = document.getElementById("themeToggleLabel");
-  function applyTheme(theme) {
-    root.setAttribute("data-theme", theme);
-    if (themeLabel) themeLabel.textContent = theme === "dark" ? "Dark" : "Light";
-    try { localStorage.setItem("theme", theme); } catch (e) {}
-  }
-  let savedTheme = "dark";
-  try {
-    savedTheme = localStorage.getItem("theme") ||
-      (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-  } catch (e) {}
-  applyTheme(savedTheme);
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
-    });
+  /* ---- Theme toggle (persisted) ---- */
+  function initTheme() {
+    const toggle = document.getElementById("themeToggle");
+    const label = document.getElementById("themeToggleLabel");
+    const apply = (t) => {
+      root.setAttribute("data-theme", t);
+      if (label) label.textContent = t === "dark" ? "Dark" : "Light";
+      try { localStorage.setItem("theme", t); } catch (e) {}
+    };
+    let saved = "dark";
+    try {
+      saved = localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    } catch (e) {}
+    apply(saved);
+    if (toggle) toggle.addEventListener("click", () =>
+      apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark"));
   }
 
-  /* MOBILE NAV */
-  const sidebar = document.getElementById("sidebar");
-  const mobileNavToggle = document.getElementById("mobileNavToggle");
-  if (mobileNavToggle && sidebar) {
-    mobileNavToggle.addEventListener("click", () => {
-      const isOpen = sidebar.classList.toggle("open");
-      mobileNavToggle.setAttribute("aria-expanded", String(isOpen));
+  /* ---- Mobile nav drawer ---- */
+  function initMobileNav() {
+    const sidebar = document.getElementById("sidebar");
+    const toggle = document.getElementById("mobileNavToggle");
+    if (!sidebar || !toggle) return;
+    toggle.addEventListener("click", () => {
+      const open = sidebar.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
     });
-    document.querySelectorAll(".nav-link").forEach((link) => {
+    document.querySelectorAll(".nav-link").forEach((link) =>
       link.addEventListener("click", () => {
         sidebar.classList.remove("open");
-        mobileNavToggle.setAttribute("aria-expanded", "false");
-      });
-    });
+        toggle.setAttribute("aria-expanded", "false");
+      }));
   }
 
-  /* SCROLL-SPY */
+  /* ---- Scroll-spy: highlight active nav item ---- */
   function initScrollSpy() {
     const sections = document.querySelectorAll(".section");
-    const navLinks = document.querySelectorAll(".nav-link");
+    const links = document.querySelectorAll(".nav-link");
     if (!sections.length) return;
     const spy = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute("id");
-          navLinks.forEach((link) => link.classList.toggle("active", link.dataset.section === id));
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const id = e.target.getAttribute("id");
+          links.forEach((l) => l.classList.toggle("active", l.dataset.section === id));
         }
       });
     }, { rootMargin: "-40% 0px -50% 0px", threshold: 0 });
     sections.forEach((s) => spy.observe(s));
   }
 
-  /* REVEALS */
+  /* ---- Reveal-on-scroll entrance animations ---- */
   function initReveals() {
-    const revealEls = document.querySelectorAll(".reveal");
-    if (!revealEls.length) return;
+    const els = document.querySelectorAll(".reveal");
+    if (!els.length) return;
     const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          obs.unobserve(entry.target);
-        }
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("is-visible"); obs.unobserve(e.target); }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    revealEls.forEach((el) => io.observe(el));
+    els.forEach((el) => io.observe(el));
   }
 
-  /* PARTICLES */
-  function initParticles(count = 26) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const field = document.createElement("div");
-    field.className = "particles";
-    field.setAttribute("aria-hidden", "true");
-    for (let i = 0; i < count; i++) {
-      const p = document.createElement("span");
-      p.className = "particle";
-      const size = 2 + Math.random() * 4;
-      p.style.left = Math.random() * 100 + "vw";
-      p.style.width = size + "px";
-      p.style.height = size + "px";
-      p.style.opacity = 0.3 + Math.random() * 0.5;
-      p.style.animationDuration = 16 + Math.random() * 22 + "s";
-      p.style.animationDelay = -(Math.random() * 30) + "s";
-      field.appendChild(p);
-    }
-    document.body.appendChild(field);
-  }
-
-  function boot() { initScrollSpy(); initReveals(); initParticles(); }
+  function boot() { initTheme(); initMobileNav(); initScrollSpy(); initReveals(); }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot);
   } else { boot(); }
-  document.addEventListener("content:rendered", () => { initReveals(); });
+
+  // Re-scan reveals after dynamic cards are injected.
+  document.addEventListener("content:rendered", initReveals);
 })();

@@ -1,74 +1,63 @@
 /* =========================================================================
-   js/dynamic-content.js — renders Expertise, Achievements, Projects, Stack
-   from the data/*.js files (window.PortfolioData) into the DOM.
+   js/dynamic-content.js
+   -------------------------------------------------------------------------
+   Reads window.PortfolioData (about + projects) and paints:
+     - the sidebar profile (name, title, status, socials)
+     - the About section (bio + tagline)
+     - the Projects feed (one card per registered project, sorted by order)
+   You never edit this file to add content — only the data/* files.
    ========================================================================= */
 
 (function () {
   "use strict";
+
   const data = window.PortfolioData || {};
+  const esc = (s) => String(s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-  const esc = (s) =>
-    String(s)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+  const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
 
-  function renderExpertise() {
-    const grid = document.getElementById("expertise-grid");
-    if (!grid || !data.expertise?.cards) return;
-    grid.innerHTML = data.expertise.cards.map((c) => `
-        <div class="expertise-card glass">
-          <span class="expertise-tag">${esc(c.tag)}</span>
-          <h4>${esc(c.title)}</h4>
-          <p>${esc(c.body)}</p>
-        </div>`).join("");
-  }
-
-  function renderAchievements() {
-    const a = data.achievements;
+  /* ---- Profile (sidebar) + About section ---- */
+  function renderAbout() {
+    const a = data.about;
     if (!a) return;
-    const metrics = document.getElementById("metrics-grid");
-    if (metrics && a.metrics) {
-      metrics.innerHTML = a.metrics.map((m) => `
-          <div class="metric-tile glass">
-            <div class="metric-value">${esc(m.value)}</div>
-            <div class="metric-label">${esc(m.label)}</div>
-          </div>`).join("");
-    }
-    const certs = document.getElementById("cert-list");
-    if (certs && a.certifications) {
-      certs.innerHTML = a.certifications.map((c) => `
-          <div class="cert-item glass">
-            <span class="ci-name">${esc(c.name)}</span>
-            <span class="ci-meta">${esc(c.issuer)} · ${esc(c.date)}</span>
-          </div>`).join("");
-    }
-    const awards = document.getElementById("award-list");
-    if (awards && a.awards) {
-      awards.innerHTML = a.awards.map((w) => `
-          <div class="award-item glass">
-            <span class="ai-name">${esc(w.name)}</span>
-            <span class="ai-note">${esc(w.note)}</span>
-          </div>`).join("");
-    }
-    const pubs = document.getElementById("pub-list");
-    if (pubs && a.publications) {
-      pubs.innerHTML = a.publications.map((p) => `
-          <div class="pub-item glass">
-            <span class="pi-name">${esc(p.name)}</span>
-            <span class="pi-meta">${esc(p.venue)} · ${esc(p.date)}</span>
-          </div>`).join("");
-    }
+
+    setText("profileName", a.name);
+    set("profileTitle", esc(a.title).replace(/ · /, "<br>· "));
+    setText("profileStatus", a.status);
+    setText("profileMeta", `${a.location} · ${a.badge}`);
+    setText("aboutTagline", a.tagline);
+    setText("aboutBio", a.bio);
+    setText("contactEmail", a.email);
+
+    const emailBtn = document.getElementById("contactEmailBtn");
+    if (emailBtn) emailBtn.href = "mailto:" + a.email;
+
+    // Social links (sidebar shows short codes, contact shows full labels)
+    const shortRow = (a.socials || []).map((s) =>
+      `<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${esc(s.short)}</a>`).join("");
+    set("socialShort", shortRow);
+
+    const fullRow = (a.socials || []).map((s) =>
+      `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join("");
+    set("socialFull", fullRow);
   }
 
+  /* ---- Projects feed ---- */
   function renderProjects() {
     const list = document.getElementById("projects-list");
     if (!list || !data.projects) return;
-    list.innerHTML = data.projects.map((p) => {
-      const pipeline = (p.pipeline || []).map((s) =>
-        `<span class="pipeline-chip">${esc(s.stage)}: ${esc(s.detail)}</span>`).join("");
+
+    const projects = data.projects.slice().sort((x, y) => (x.order || 99) - (y.order || 99));
+
+    list.innerHTML = projects.map((p) => {
       const tech = (p.tech || []).map((t) => `<span class="tech-tag">${esc(t)}</span>`).join("");
-      const links = p.links ? Object.entries(p.links).map(([label, url]) =>
-        `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("") : "";
+      const links = p.links
+        ? Object.entries(p.links).map(([label, url]) =>
+            `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")
+        : "";
       return `
         <article class="project-card glass">
           <div class="project-head">
@@ -77,30 +66,15 @@
           </div>
           ${p.period ? `<div class="project-period">${esc(p.period)}</div>` : ""}
           <p class="project-desc">${esc(p.description)}</p>
-          ${pipeline ? `<div class="project-pipeline">${pipeline}</div>` : ""}
           <div class="tag-row">${tech}</div>
           ${links ? `<div class="project-links">${links}</div>` : ""}
         </article>`;
     }).join("");
   }
 
-  function renderStack() {
-    const wrap = document.getElementById("stack-groups");
-    if (!wrap || !data.expertise?.stack) return;
-    wrap.innerHTML = data.expertise.stack.map((g) => `
-        <div class="stack-group">
-          <h4 class="stack-group-title">${esc(g.group)}</h4>
-          <div class="stack-chips">
-            ${g.chips.map((c) => `<span>${esc(c)}</span>`).join("")}
-          </div>
-        </div>`).join("");
-  }
-
   function boot() {
-    renderExpertise();
-    renderAchievements();
+    renderAbout();
     renderProjects();
-    renderStack();
     document.dispatchEvent(new CustomEvent("content:rendered"));
   }
 

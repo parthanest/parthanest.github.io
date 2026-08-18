@@ -1,222 +1,83 @@
 /* =========================================================================
-   css/ai-tools.css — Right-hand "AI Tools" rail + CV Enhancer form + toasts
+   css/ai-tools.css
+   -------------------------------------------------------------------------
+   Styles for the "AI Tools" sidebar button and the under-construction page.
    ========================================================================= */
 
-/* ---------------------------------------------------------------
-   AI TOOLS RAIL (fixed right column)
-   --------------------------------------------------------------- */
-.ai-rail {
-  width: var(--aitools-w);
-  flex-shrink: 0;
-  position: fixed;
-  top: 0; right: 0; bottom: 0;
-  background: var(--surface);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-left: 1px solid var(--border);
-  padding: 30px 24px;
-  overflow-y: auto;
-  z-index: 45;
-  transition: transform var(--transition);
-}
-.ai-rail::-webkit-scrollbar { width: 6px; }
-.ai-rail::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 999px; }
-
-.ai-rail-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.ai-rail-badge {
-  font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--accent);
-  border: 1px solid var(--border-strong); background: var(--accent-soft);
-  border-radius: 999px; padding: 4px 10px;
-}
-.ai-rail h3 {
-  font-size: 1.15rem; font-weight: 600; margin-bottom: 6px;
-}
-.ai-rail-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 22px; line-height: 1.5; }
-
-/* ---------------------------------------------------------------
-   TOOL CARD (glass) — hosts the CV Enhancer form
-   --------------------------------------------------------------- */
-.tool-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 22px 20px;
-  position: relative;
-  overflow: hidden;
-}
-.tool-card::before {
-  content: "";
-  position: absolute; inset: 0; border-radius: var(--radius);
-  padding: 1px; pointer-events: none;
-  background: linear-gradient(140deg, var(--accent), transparent 40%, transparent 60%, var(--accent-2));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  opacity: 0.5;
-}
-.tool-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
-.tool-icon {
-  width: 34px; height: 34px; flex-shrink: 0;
-  display: grid; place-items: center;
-  border-radius: 9px;
-  background: linear-gradient(120deg, var(--accent-soft), var(--accent-2-soft));
-  border: 1px solid var(--border-strong);
-  font-size: 1rem;
-}
-.tool-title { font-size: 0.98rem; font-weight: 600; }
-.tool-desc { font-size: 0.76rem; color: var(--text-muted); margin: 8px 0 18px; line-height: 1.5; }
-
-/* ---------------------------------------------------------------
-   FORM CONTROLS
-   --------------------------------------------------------------- */
-.cv-form { display: flex; flex-direction: column; gap: 14px; }
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field label {
-  font-family: var(--font-mono); font-size: 0.68rem;
-  color: var(--text-dim); letter-spacing: 0.03em;
-  display: flex; align-items: center; gap: 6px;
-}
-.field label .req { color: var(--accent); }
-
-.field input[type="email"],
-.field textarea {
-  font-family: var(--font-body); font-size: 0.85rem;
-  color: var(--text);
-  background: var(--surface-solid);
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  padding: 11px 12px;
-  transition: border-color var(--transition), box-shadow var(--transition);
-  resize: vertical;
-  width: 100%;
-}
-.field textarea { min-height: 84px; line-height: 1.5; }
-.field input:focus, .field textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
-}
-.field input::placeholder, .field textarea::placeholder { color: var(--text-muted); }
-
-/* ---- File dropzone ---- */
-.file-drop {
-  position: relative;
-  border: 1.5px dashed var(--border-strong);
-  border-radius: 10px;
-  padding: 18px 14px;
-  text-align: center;
-  transition: all var(--transition);
-  cursor: pointer;
-  background: var(--surface-solid);
-}
-.file-drop:hover, .file-drop.dragover {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
-.file-drop input[type="file"] {
-  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-}
-.file-drop-icon { font-size: 1.3rem; margin-bottom: 6px; }
-.file-drop-text { font-size: 0.78rem; color: var(--text-dim); }
-.file-drop-hint { font-family: var(--font-mono); font-size: 0.64rem; color: var(--text-muted); margin-top: 4px; }
-.file-chosen {
-  margin-top: 10px; font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--accent); display: none; align-items: center; gap: 6px;
-  justify-content: center; word-break: break-all;
-}
-.file-chosen.show { display: flex; }
-
-/* ---- Submit button with loading state ---- */
-.cv-submit {
-  margin-top: 4px;
+/* ---- AI Tools sidebar button (stands out from normal nav links) ---- */
+.ai-tools-btn {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 14px; padding: 11px 12px;
   font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500;
-  padding: 13px 18px; border-radius: 10px;
-  background: linear-gradient(120deg, var(--accent), var(--accent-2));
   color: #07101E;
-  display: flex; align-items: center; justify-content: center; gap: 9px;
-  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
-  box-shadow: 0 8px 26px -10px var(--glow);
-}
-.cv-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 34px -10px var(--glow); }
-.cv-submit:disabled { opacity: 0.65; cursor: not-allowed; }
-.cv-submit .spinner {
-  width: 15px; height: 15px; border-radius: 50%;
-  border: 2px solid rgba(7,16,30,0.35); border-top-color: #07101E;
-  animation: spin 0.7s linear infinite; display: none;
-}
-.cv-submit.loading .spinner { display: inline-block; }
-.cv-submit.loading .label::after { content: "…"; }
-
-/* ---- Inline status line under the button ---- */
-.cv-status {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  min-height: 16px; margin-top: 4px; line-height: 1.4;
-}
-.cv-status.ok  { color: var(--ok); }
-.cv-status.err { color: var(--err); }
-.cv-status.info{ color: var(--text-muted); }
-
-/* ---- Security notice ---- */
-.ai-note-box {
-  margin-top: 18px; padding: 12px 14px;
-  border: 1px solid var(--border); border-radius: 10px;
-  background: var(--surface-solid);
-  font-size: 0.7rem; color: var(--text-muted); line-height: 1.5;
-}
-.ai-note-box strong { color: var(--warn); }
-
-/* ---- "How it works" mini pipeline ---- */
-.ai-flow { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-.ai-flow-title { font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
-.ai-flow-step { display: flex; align-items: flex-start; gap: 10px; font-size: 0.74rem; color: var(--text-dim); }
-.ai-flow-num {
-  flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
-  display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.66rem;
-  color: var(--accent); border: 1px solid var(--border-strong); background: var(--accent-soft);
-}
-
-/* ---------------------------------------------------------------
-   TOAST NOTIFICATIONS
-   --------------------------------------------------------------- */
-.toast-wrap {
-  position: fixed; bottom: 22px; right: 22px; z-index: 200;
-  display: flex; flex-direction: column; gap: 10px; max-width: 340px;
-}
-.toast {
-  display: flex; align-items: flex-start; gap: 10px;
-  background: var(--surface-solid);
-  border: 1px solid var(--border-strong);
-  border-left: 3px solid var(--accent);
-  border-radius: 10px; padding: 13px 15px;
-  box-shadow: 0 14px 40px -14px rgba(0,0,0,0.6);
-  animation: toast-in 0.35s cubic-bezier(0.22,1,0.36,1) both;
-  font-size: 0.8rem;
-}
-.toast.ok  { border-left-color: var(--ok); }
-.toast.err { border-left-color: var(--err); }
-.toast-icon { font-size: 1rem; line-height: 1.2; }
-.toast-body strong { display: block; font-size: 0.82rem; margin-bottom: 2px; }
-.toast-body span { color: var(--text-muted); font-size: 0.74rem; }
-
-/* ---------------------------------------------------------------
-   MOBILE: turn the rail into a slide-up drawer + FAB
-   --------------------------------------------------------------- */
-.ai-fab {
-  display: none;
-  position: fixed; bottom: 20px; right: 20px; z-index: 90;
-  width: 54px; height: 54px; border-radius: 50%;
   background: linear-gradient(120deg, var(--accent), var(--accent-2));
-  color: #07101E; font-size: 1.3rem;
-  place-items: center;
-  box-shadow: 0 10px 30px -8px var(--glow);
+  border-radius: 10px;
+  box-shadow: 0 8px 26px -10px var(--glow);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
+.ai-tools-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 34px -10px var(--glow); }
+.ai-tools-btn .ai-ico { font-size: 1rem; }
+.ai-tools-btn .ai-arrow { margin-left: auto; opacity: 0.75; }
 
-@media (max-width: 1200px) {
-  .ai-rail {
-    transform: translateX(100%);
-    width: min(360px, 90vw);
-    box-shadow: -12px 0 44px rgba(0,0,0,0.45);
-  }
-  .ai-rail.open { transform: translateX(0); }
-  .ai-fab { display: grid; }
+/* small "soon" badge on the button */
+.ai-tools-btn .soon {
+  font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase;
+  background: rgba(7,16,30,0.22); color: #07101E;
+  padding: 2px 7px; border-radius: 999px; margin-left: auto;
+}
+.ai-tools-btn .soon + .ai-arrow { margin-left: 8px; }
+
+/* =========================================================================
+   UNDER-CONSTRUCTION PAGE
+   ========================================================================= */
+.uc-wrap {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 40px 24px; gap: 6px;
+}
+.uc-card {
+  max-width: 560px; width: 100%;
+  background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 48px 40px;
+}
+.uc-badge {
+  font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); background: var(--accent-soft); border: 1px solid var(--border-strong);
+  border-radius: 999px; padding: 5px 12px; display: inline-block; margin-bottom: 22px;
+}
+.uc-emoji { font-size: 3.4rem; margin-bottom: 14px; display: block; animation: float-y 3.5s ease-in-out infinite; }
+@keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+.uc-title {
+  font-size: clamp(1.6rem, 4vw, 2.3rem); font-weight: 700; margin-bottom: 14px;
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.uc-text { color: var(--text-dim); font-size: 1rem; line-height: 1.6; margin-bottom: 10px; }
+.uc-sub { color: var(--text-muted); font-size: 0.86rem; margin-bottom: 30px; }
+
+/* animated build/progress bar */
+.uc-bar { height: 6px; width: 100%; border-radius: 999px; background: var(--surface-solid); overflow: hidden; margin-bottom: 30px; border: 1px solid var(--border); }
+.uc-bar-fill {
+  height: 100%; width: 40%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  animation: uc-load 2.4s ease-in-out infinite;
+}
+@keyframes uc-load { 0% { margin-left: -40%; } 100% { margin-left: 100%; } }
+
+.uc-back { display: inline-flex; align-items: center; gap: 8px; }
+
+/* preview list of upcoming tools */
+.uc-list { display: flex; flex-direction: column; gap: 10px; margin: 4px 0 30px; text-align: left; }
+.uc-list-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.84rem; color: var(--text-dim);
+  padding: 11px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-solid);
+}
+.uc-list-item .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .uc-emoji, .uc-bar-fill { animation: none; }
+  .uc-bar-fill { width: 60%; }
 }
