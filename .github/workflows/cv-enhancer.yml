@@ -1,0 +1,37 @@
+# =============================================================================
+# .github/workflows/cv-enhancer.yml
+# CI for the CV Enhancer backend: install deps + syntax-check so the service
+# stays deployable. No secrets are printed; email sending is NOT run in CI.
+# =============================================================================
+name: CV Enhancer Backend CI
+
+on:
+  push:
+    paths:
+      - "server/**"
+      - ".github/workflows/cv-enhancer.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Install & syntax-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install backend dependencies
+        working-directory: server
+        run: npm install
+      - name: Syntax-check server files
+        working-directory: server
+        run: |
+          node --check server.js
+          node --check mailer.js
+          echo "✅ Backend files parse cleanly."
