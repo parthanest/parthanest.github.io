@@ -1,8 +1,5 @@
-/* =========================================================================
-   data/about-me.js — ONLY personal info: name, title, bio, socials.
-   ========================================================================= */
+/* data/about-me.js — ONLY personal info: name, title, bio, socials. */
 window.PortfolioData = window.PortfolioData || {};
-
 window.PortfolioData.about = {
   name: "Parthasarathy T",
   title: "Forward-Deployed Engineer · GCP",

@@ -1,8 +1,5 @@
-/* =========================================================================
-   css/ai-tools.css — AI Tools sidebar button + CV Enhancer tool page
-   ========================================================================= */
-
-/* ---- Sidebar "AI Tools" button ---- */
+/* css/ai-tools.css — the "AI Tools" sidebar button on the main portfolio.
+   (The CV Enhancer tool page is self-contained; its styles live inline.) */
 .ai-tools-btn {
   display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 11px 12px;
   font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500; color: #07101E;
@@ -13,83 +10,3 @@
 .ai-tools-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 34px -10px var(--glow); }
 .ai-tools-btn .ai-ico { font-size: 1rem; }
 .ai-tools-btn .ai-arrow { margin-left: auto; opacity: 0.75; }
-
-/* =========================================================================
-   CV ENHANCER TOOL PAGE (cv-enhancer.html)
-   ========================================================================= */
-.tool-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 48px 22px; }
-.tool-card {
-  width: 100%; max-width: 540px; position: relative; overflow: hidden;
-  background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 34px;
-}
-.tool-card::before {
-  content: ""; position: absolute; inset: 0; border-radius: var(--radius); padding: 1px; pointer-events: none;
-  background: linear-gradient(140deg, var(--accent), transparent 40%, transparent 60%, var(--accent-2));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0.5;
-}
-.tool-back { font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted); display: inline-flex; gap: 6px; margin-bottom: 18px; }
-.tool-back:hover { color: var(--accent); }
-.tool-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-.tool-icon { width: 40px; height: 40px; flex-shrink: 0; display: grid; place-items: center; border-radius: 10px;
-  background: linear-gradient(120deg, var(--accent-soft), var(--accent-2-soft)); border: 1px solid var(--border-strong); font-size: 1.15rem; }
-.tool-title { font-size: 1.2rem; font-weight: 600; }
-.tool-desc { font-size: 0.85rem; color: var(--text-muted); margin: 10px 0 24px; line-height: 1.55; }
-
-/* ---- Form fields ---- */
-.cv-form { display: flex; flex-direction: column; gap: 16px; }
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.03em; }
-.field label .req { color: var(--accent); }
-.field input[type="email"], .field textarea {
-  font-family: var(--font-body); font-size: 0.88rem; color: var(--text);
-  background: var(--surface-solid); border: 1px solid var(--border); border-radius: 10px;
-  padding: 12px 13px; width: 100%; resize: vertical;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.field textarea { min-height: 92px; line-height: 1.5; }
-.field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.field input::placeholder, .field textarea::placeholder { color: var(--text-muted); }
-
-/* ---- File dropzone ---- */
-.file-drop { position: relative; border: 1.5px dashed var(--border-strong); border-radius: 11px;
-  padding: 22px 16px; text-align: center; cursor: pointer; background: var(--surface-solid); transition: all var(--transition); }
-.file-drop:hover, .file-drop.dragover { border-color: var(--accent); background: var(--accent-soft); }
-.file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-.file-drop-icon { font-size: 1.4rem; margin-bottom: 6px; }
-.file-drop-text { font-size: 0.82rem; color: var(--text-dim); }
-.file-drop-hint { font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-muted); margin-top: 4px; }
-.file-chosen { margin-top: 10px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent);
-  display: none; align-items: center; gap: 6px; justify-content: center; word-break: break-all; }
-.file-chosen.show { display: flex; }
-
-/* ---- Submit + spinner ---- */
-.cv-submit { margin-top: 4px; font-family: var(--font-mono); font-size: 0.88rem; font-weight: 500;
-  padding: 14px 18px; border-radius: 11px; color: #07101E;
-  background: linear-gradient(120deg, var(--accent), var(--accent-2));
-  display: flex; align-items: center; justify-content: center; gap: 9px;
-  box-shadow: 0 8px 26px -10px var(--glow); transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition); }
-.cv-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 34px -10px var(--glow); }
-.cv-submit:disabled { opacity: 0.65; cursor: not-allowed; }
-.cv-submit .spinner { width: 15px; height: 15px; border-radius: 50%;
-  border: 2px solid rgba(7,16,30,0.35); border-top-color: #07101E; animation: spin 0.7s linear infinite; display: none; }
-.cv-submit.loading .spinner { display: inline-block; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.cv-status { font-family: var(--font-mono); font-size: 0.72rem; min-height: 16px; margin-top: 4px; line-height: 1.4; }
-.cv-status.ok { color: var(--ok); } .cv-status.err { color: var(--err); } .cv-status.info { color: var(--text-muted); }
-
-/* ---- Toast ---- */
-.toast-wrap { position: fixed; bottom: 22px; right: 22px; z-index: 200; display: flex; flex-direction: column; gap: 10px; max-width: 340px; }
-.toast { display: flex; align-items: flex-start; gap: 10px; background: var(--surface-solid);
-  border: 1px solid var(--border-strong); border-left: 3px solid var(--accent); border-radius: 10px;
-  padding: 13px 15px; box-shadow: 0 14px 40px -14px rgba(0,0,0,0.6); font-size: 0.8rem;
-  animation: toast-in 0.35s cubic-bezier(0.22,1,0.36,1) both; }
-.toast.ok { border-left-color: var(--ok); } .toast.err { border-left-color: var(--err); }
-.toast-body strong { display: block; font-size: 0.82rem; margin-bottom: 2px; }
-.toast-body span { color: var(--text-muted); font-size: 0.74rem; }
-@keyframes toast-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-
-.tool-note { margin-top: 20px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px;
-  background: var(--surface-solid); font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; }

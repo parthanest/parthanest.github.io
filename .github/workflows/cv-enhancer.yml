@@ -1,13 +1,8 @@
 # =============================================================================
 # .github/workflows/cv-enhancer.yml
-# -----------------------------------------------------------------------------
-# CI for the CV Enhancer backend: installs deps and syntax-checks the server
-# so the Node service stays deployable. (Email sending is NOT run in CI.)
-#
-# The Gmail App Password is provided to the RUNTIME host as an env var/secret
-# (GMAIL_APP_PASSWORD), never printed in logs and never needed at build time.
+# CI for the CV Enhancer backend: install deps + syntax-check so the service
+# stays deployable. No secrets are printed; email sending is NOT run in CI.
 # =============================================================================
-
 name: CV Enhancer Backend CI
 
 on:
@@ -27,16 +22,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-
       - name: Install backend dependencies
         working-directory: server
         run: npm install
-
       - name: Syntax-check server files
         working-directory: server
         run: |

@@ -1,6 +1,4 @@
-/* =========================================================================
-   css/components.css — Sidebar, profile, cards, buttons, chips
-   ========================================================================= */
+/* css/components.css — Sidebar, profile, cards, buttons, chips */
 .sidebar {
   width: var(--sidebar-w); flex-shrink: 0;
   position: fixed; top: 0; left: 0; bottom: 0;
@@ -9,23 +7,17 @@
   display: flex; flex-direction: column; justify-content: space-between;
   padding: 34px 26px; z-index: 50; transition: transform var(--transition); overflow-y: auto;
 }
-.avatar-ring {
-  position: relative; width: 108px; height: 108px; border-radius: 50%;
-  margin-bottom: 18px; padding: 4px; animation: ring-pulse 3.2s ease-in-out infinite;
-}
-.avatar-ring::before {
-  content: ""; position: absolute; inset: -3px; border-radius: 50%; z-index: 0;
+.avatar-ring { position: relative; width: 108px; height: 108px; border-radius: 50%;
+  margin-bottom: 18px; padding: 4px; animation: ring-pulse 3.2s ease-in-out infinite; }
+.avatar-ring::before { content: ""; position: absolute; inset: -3px; border-radius: 50%; z-index: 0;
   background: conic-gradient(from 0deg, var(--accent), var(--accent-2), var(--accent));
-  animation: ring-spin 6s linear infinite;
-}
+  animation: ring-spin 6s linear infinite; }
 .avatar-wrap { position: relative; z-index: 1; width: 100%; height: 100%;
   border-radius: 50%; overflow: hidden; background: var(--surface-solid); border: 2px solid var(--bg); }
 .avatar { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 @keyframes ring-spin { to { transform: rotate(360deg); } }
-@keyframes ring-pulse {
-  0%,100% { box-shadow: 0 0 22px -4px var(--glow), 0 0 40px -10px var(--glow-2); }
-  50%     { box-shadow: 0 0 34px 2px var(--glow),  0 0 64px -6px var(--glow-2); }
-}
+@keyframes ring-pulse { 0%,100% { box-shadow: 0 0 22px -4px var(--glow), 0 0 40px -10px var(--glow-2); }
+  50% { box-shadow: 0 0 34px 2px var(--glow), 0 0 64px -6px var(--glow-2); } }
 .name { font-size: 1.35rem; font-weight: 600; margin-bottom: 4px; }
 .role-tag { font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono); line-height: 1.4; margin-bottom: 16px; }
 .status-pill { display: inline-flex; align-items: center; gap: 8px;
@@ -42,7 +34,6 @@
   background: var(--accent-soft); box-shadow: inset 0 0 20px -12px var(--glow); }
 
 .meta-line { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); margin-bottom: 14px; }
-.dot-sep { margin: 0 5px; color: var(--accent); }
 .social-row { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
 .social-row a { font-family: var(--font-mono); font-size: 0.7rem; border: 1px solid var(--border);
   border-radius: 8px; padding: 7px 11px; color: var(--text-dim); transition: all var(--transition); }

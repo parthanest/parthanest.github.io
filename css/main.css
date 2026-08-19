@@ -1,6 +1,4 @@
-/* =========================================================================
-   css/main.css — Global styling, design tokens & layout grid
-   ========================================================================= */
+/* css/main.css — Global styling, design tokens & layout grid */
 :root {
   --bg: #070A12; --surface: rgba(20,26,42,0.55); --surface-solid: #10162A;
   --border: rgba(120,160,255,0.14); --border-strong: rgba(120,160,255,0.30);
@@ -42,16 +40,12 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.015em; line-height: 1.15; }
 
 .layout { display: flex; min-height: 100vh; }
-.main {
-  margin-left: var(--sidebar-w); width: calc(100% - var(--sidebar-w));
-  padding: 0 56px; transition: margin var(--transition), width var(--transition);
-}
+.main { margin-left: var(--sidebar-w); width: calc(100% - var(--sidebar-w));
+  padding: 0 56px; transition: margin var(--transition), width var(--transition); }
 .section { padding: 100px 0; border-bottom: 1px solid var(--border); max-width: 860px; }
 .section:last-of-type { border-bottom: none; }
-.section-eyebrow {
-  font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent);
-  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px;
-}
+.section-eyebrow { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
 .section-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 28px; max-width: 620px; }
 
 .reveal { opacity: 0; transform: translateY(28px);
@@ -65,8 +59,5 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.015em; lin
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
-@media (max-width: 960px) {
-  .main { margin-left: 0; width: 100%; padding: 0 26px; }
-  .section { padding: 76px 0; }
-}
+@media (max-width: 960px) { .main { margin-left: 0; width: 100%; padding: 0 26px; } .section { padding: 76px 0; } }
 @media (max-width: 480px) { .main { padding: 0 20px; } }

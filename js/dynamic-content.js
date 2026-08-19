@@ -1,15 +1,12 @@
-/* =========================================================================
-   js/dynamic-content.js — paints sidebar profile, About, and Projects feed
-   from window.PortfolioData (about + self-registered projects).
-   ========================================================================= */
+/* js/dynamic-content.js — paints sidebar profile, About, and Projects feed. */
 (function () {
   "use strict";
   const data = window.PortfolioData || {};
   const esc = (s) => String(s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;")
     .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
-  const setHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+  const setText = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+  const setHTML = (id, h) => { const el = document.getElementById(id); if (el) el.innerHTML = h; };
 
   function renderAbout() {
     const a = data.about;
@@ -22,7 +19,6 @@
     setText("contactEmail", a.email);
     const emailBtn = document.getElementById("contactEmailBtn");
     if (emailBtn) emailBtn.href = "mailto:" + a.email;
-
     setHTML("socialShort", (a.socials || []).map((s) =>
       `<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${esc(s.short)}</a>`).join(""));
     setHTML("socialFull", (a.socials || []).map((s) =>
@@ -58,7 +54,6 @@
     renderProjects();
     document.dispatchEvent(new CustomEvent("content:rendered"));
   }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else { boot(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
 })();

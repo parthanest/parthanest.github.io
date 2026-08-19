@@ -1,20 +1,18 @@
 /* =========================================================================
-   js/cv-form.js
+   js/cv-form.js — CV Enhancer form handler
    -------------------------------------------------------------------------
-   Client-side handler for the CV Enhancer form:
-     1. Validates email / prompt / file (type + size).
-     2. Builds a multipart/form-data payload (fields + file).
-     3. POSTs it to the backend (/api/cv-enhance).
-     4. Manages loading spinner, inline status + success/error toasts.
-
-   Configure API_ENDPOINT to point at your deployed backend:
-     - local dev  : http://localhost:8080/api/cv-enhance
-     - production : https://<your-backend-host>/api/cv-enhance
+   - Validates email / prompt / file.
+   - Sends multipart/form-data to the backend.
+   - Loading spinner + inline status + toast.
+   - IMPORTANT: the user NEVER sees raw server/network internals. Every
+     failure is mapped to a clean, friendly message. Real details stay in
+     the browser console only (console.error), never in the UI.
    ========================================================================= */
 
 (function () {
   "use strict";
 
+  // Point this at your deployed backend. Local dev default:
   const API_ENDPOINT = "http://localhost:8080/api/cv-enhance";
   const MAX_FILE_MB = 5;
   const ACCEPT_EXT = [".pdf", ".docx", ".txt"];
@@ -29,7 +27,7 @@
   const submit   = document.getElementById("cvSubmit");
   const statusEl = document.getElementById("cvStatus");
 
-  /* ---- Toast helper ---- */
+  /* ---- Toast ---- */
   function toast(kind, title, msg) {
     let wrap = document.querySelector(".toast-wrap");
     if (!wrap) {
@@ -41,8 +39,7 @@
     const el = document.createElement("div");
     el.className = "toast " + (kind === "ok" ? "ok" : kind === "err" ? "err" : "");
     const icon = kind === "ok" ? "✅" : kind === "err" ? "⛔" : "ℹ️";
-    el.innerHTML = `<span class="toast-icon">${icon}</span>
-      <div class="toast-body"><strong>${title}</strong><span>${msg}</span></div>`;
+    el.innerHTML = `<span aria-hidden="true">${icon}</span><div><b>${title}</b><span>${msg}</span></div>`;
     wrap.appendChild(el);
     setTimeout(() => {
       el.style.transition = "opacity .4s, transform .4s";
@@ -50,9 +47,9 @@
       setTimeout(() => el.remove(), 420);
     }, 5200);
   }
-  const setStatus = (kind, text) => { statusEl.className = "cv-status " + kind; statusEl.textContent = text; };
+  const setStatus = (kind, text) => { statusEl.className = "status " + kind; statusEl.textContent = text; };
 
-  /* ---- File selection UX (click + drag/drop) ---- */
+  /* ---- File UX ---- */
   const extOf = (n) => n.slice(n.lastIndexOf(".")).toLowerCase();
   function showChosen(file) {
     chosenEl.classList.add("show");
@@ -67,7 +64,7 @@
     if (e.dataTransfer.files[0]) { fileEl.files = e.dataTransfer.files; showChosen(e.dataTransfer.files[0]); }
   });
 
-  /* ---- Validation ---- */
+  /* ---- Validation (these messages are safe + user-facing) ---- */
   function validate(email, prompt, file) {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Please enter a valid email address.";
     if (!prompt || prompt.trim().length < 8) return "Add a short enhancement instruction (min 8 chars).";
@@ -77,6 +74,15 @@
     return null;
   }
 
+  /* ---- Map ANY failure to a clean message (no internals leaked) ---- */
+  function friendlyError(kind) {
+    switch (kind) {
+      case "network": return "We couldn't reach the server. Please check your connection or try again shortly.";
+      case "server":  return "The server couldn't process the request right now. Please try again in a moment.";
+      default:        return "Something went wrong. Please try again.";
+    }
+  }
+
   /* ---- Submit ---- */
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -84,8 +90,8 @@
     const prompt = promptEl.value.trim();
     const file = fileEl.files[0];
 
-    const err = validate(email, prompt, file);
-    if (err) { setStatus("err", err); toast("err", "Check the form", err); return; }
+    const invalid = validate(email, prompt, file);
+    if (invalid) { setStatus("err", invalid); toast("err", "Check the form", invalid); return; }
 
     submit.disabled = true;
     submit.classList.add("loading");
@@ -97,22 +103,30 @@
       fd.append("prompt", prompt);
       fd.append("cv", file, file.name);   // field name "cv" matches multer on the backend
 
-      const res = await fetch(API_ENDPOINT, { method: "POST", body: fd });
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || `Server responded ${res.status}`);
+      let res;
+      try {
+        res = await fetch(API_ENDPOINT, { method: "POST", body: fd });
+      } catch (netErr) {
+        // Covers Safari "Load failed", Chrome "Failed to fetch", DNS, CORS, offline, etc.
+        console.error("[cv-form] network error:", netErr);      // stays in console only
+        throw { userKind: "network" };
       }
 
-      setStatus("ok", "Submitted! A notification email has been sent.");
+      if (!res.ok) {
+        console.error("[cv-form] server status:", res.status);  // console only
+        throw { userKind: "server" };
+      }
+
+      // Backend returns a minimal, non-sensitive JSON: { ok: true }
+      const data = await res.json().catch(() => ({}));
+      if (!data.ok) { console.error("[cv-form] unexpected body"); throw { userKind: "server" }; }
+
+      setStatus("ok", "Submitted! A confirmation email has been sent.");
       toast("ok", "Request received", "Your CV and prompt were processed and emailed for review.");
       form.reset();
       chosenEl.classList.remove("show");
     } catch (ex) {
-      console.error(ex);
-      const msg = /Failed to fetch/.test(ex.message)
-        ? "Could not reach the backend. Is the server running?"
-        : ex.message;
+      const msg = friendlyError(ex && ex.userKind);
       setStatus("err", msg);
       toast("err", "Submission failed", msg);
     } finally {

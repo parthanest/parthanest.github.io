@@ -1,12 +1,9 @@
-/* =========================================================================
-   js/main.js — project registry + theme, mobile nav, scroll-spy, reveals.
-   ========================================================================= */
+/* js/main.js — project registry + theme, mobile nav, scroll-spy, reveals. */
 (function () {
   "use strict";
-
   window.PortfolioData = window.PortfolioData || {};
   window.PortfolioData.projects = window.PortfolioData.projects || [];
-  window.registerProject = function (project) { window.PortfolioData.projects.push(project); };
+  window.registerProject = function (p) { window.PortfolioData.projects.push(p); };
 
   const root = document.documentElement;
 
@@ -70,8 +67,7 @@
   }
 
   function boot() { initTheme(); initMobileNav(); initScrollSpy(); initReveals(); }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else { boot(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
   document.addEventListener("content:rendered", initReveals);
 })();
