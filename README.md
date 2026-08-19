@@ -1,50 +1,60 @@
-# parthanest.github.io
+# parthanest.github.io — Portfolio + CV Enhancer
 
-Modular portfolio for **Parthasarathy T** with a working **CV Enhancer** AI tool —
-static frontend (GitHub Pages) + a lightweight **Node.js/Express** backend that parses
-the upload and sends a **Gmail SMTP** notification.
+Modular portfolio with an **email-on-submit CV Enhancer**. When a user submits the
+form, a **same-origin Vercel serverless function** emails **you** (`parthadevop@gmail.com`)
+the user's details with the CV attached.
+
+## 🔔 What happens on submit
+
+```
+cv-enhancer.html ──(multipart: email, prompt, cv file)──▶ POST /api/cv-enhance
+   js/cv-form.js                                            api/cv-enhance.js
+                                                              │ busboy parses upload
+                                                              │ nodemailer → Gmail SMTP
+                                                              ▼
+                                                    ✉️  Email to parthadevop@gmail.com
+                                                        (user email + prompt + CV attached)
+   browser gets: { ok: true }
+```
 
 ## 📁 Structure
 
 ```
 portfolio/
-├── index.html                 # landing page (bio + projects + AI Tools button)
-├── cv-enhancer.html           # SELF-CONTAINED tool page (styles inlined)
+├── index.html                 # landing page (AI Tools button)
+├── cv-enhancer.html           # self-contained tool page (styles inlined)
+├── api/cv-enhance.js          # ← serverless backend: emails you on submit
+├── vercel.json                # function config
+├── package.json               # busboy + nodemailer
 ├── .env.example  .gitignore
 ├── css/  { main, components, ai-tools }.css
 ├── js/   { main, dynamic-content, cv-form }.js
-├── data/ about-me.js + projects/project-N.js
-├── server/  { server.js, mailer.js, package.json }
-└── .github/workflows/cv-enhancer.yml
+└── data/ about-me.js + projects/project-N.js
 ```
 
-## ⚠️ Why the tool page is self-contained
-`cv-enhancer.html` inlines its CSS on purpose. Earlier it rendered unstyled because
-external CSS didn't load (wrong path / preview / offline). Inlining guarantees it
-**always renders correctly**, no matter how it's opened.
+## 🚀 Deploy (Vercel — recommended, same-origin)
 
-## 🔐 Error & log privacy
-The client **never** sees server internals. All backend failures are logged
-server-side only (`console.error` with a short `ref` id); the browser gets a clean,
-generic message. The frontend also maps every network error (Safari "Load failed",
-Chrome "Failed to fetch", CORS, offline) to a friendly line.
+1. Push this folder to a GitHub repo.
+2. On **vercel.com** → **New Project** → import the repo.
+3. **Settings → Environment Variables**, add:
+   | Key | Value |
+   |---|---|
+   | `GMAIL_USER` | `parthadevop@gmail.com` |
+   | `GMAIL_APP_PASSWORD` | your 16-char Google App Password |
+   | `SMTP_HOST` | `smtp.gmail.com` |
+   | `SMTP_PORT` | `587` |
+   | `NOTIFY_TO` | `parthadevop@gmail.com` |
+4. **Deploy.** Your site + `/api/cv-enhance` are now on one HTTPS domain —
+   the form works with no CORS / mixed-content / localhost issues.
 
-## ▶️ Run the backend
-```bash
-cd server
-npm install
-cp ../.env.example .env        # fill in GMAIL_APP_PASSWORD
-npm start                      # → http://localhost:8080
-```
-Open `cv-enhancer.html` locally (localhost → localhost is allowed).
+Local run: `npm i -g vercel` → `cp .env.example .env` (fill it) → `vercel dev`.
 
-## ☁️ Deploy
-GitHub Pages is static-only, so host `server/` on **Render / Railway / Cloud Run**,
-set the env vars there (incl. `GMAIL_APP_PASSWORD`), then update `API_ENDPOINT`
-in `js/cv-form.js` to the public HTTPS URL. This also avoids the mixed-content
-block you hit when an HTTPS page calls `http://localhost`.
+## 🔑 Gmail App Password (required)
+Gmail SMTP rejects your normal password. Enable **2-Step Verification** on
+`parthadevop@gmail.com`, then Google Account → Security → **App passwords** →
+generate a 16-char password → store as `GMAIL_APP_PASSWORD`. Never commit it.
 
-## 🔑 Gmail App Password
-Gmail SMTP rejects your normal password. Enable 2-Step Verification on
-`parthadevop@gmail.com`, generate a 16-char **App Password**, and store it as
-`GMAIL_APP_PASSWORD` on the backend host (never commit it).
+## 🔐 Privacy of errors/logs
+The client only ever receives `{ ok:true }` or a generic message. All real errors
+(SMTP failures, stack traces, connection details) are logged **server-side only**
+in Vercel logs with a short `ref` id — never exposed in the frontend.

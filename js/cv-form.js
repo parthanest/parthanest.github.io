@@ -1,19 +1,20 @@
 /* =========================================================================
    js/cv-form.js — CV Enhancer form handler
    -------------------------------------------------------------------------
-   - Validates email / prompt / file.
-   - Sends multipart/form-data to the backend.
-   - Loading spinner + inline status + toast.
-   - IMPORTANT: the user NEVER sees raw server/network internals. Every
-     failure is mapped to a clean, friendly message. Real details stay in
-     the browser console only (console.error), never in the UI.
+   On submit: validate → POST multipart to the backend → the backend emails
+   the owner the user details. Loading spinner + inline status + toast.
+   The user NEVER sees raw server/network internals; every failure maps to a
+   clean message. Real detail stays in the console only.
    ========================================================================= */
 
 (function () {
   "use strict";
 
-  // Point this at your deployed backend. Local dev default:
-  const API_ENDPOINT = "http://localhost:8080/api/cv-enhance";
+  // ✅ SAME-ORIGIN relative path. When deployed on Vercel, the /api function
+  //    lives on the SAME domain as this page => no CORS, no mixed-content,
+  //    no localhost problem. It "just works" once deployed.
+  //    (For a local Express dev server instead, use the full URL.)
+  const API_ENDPOINT = "/api/cv-enhance";
   const MAX_FILE_MB = 5;
   const ACCEPT_EXT = [".pdf", ".docx", ".txt"];
 
@@ -27,7 +28,6 @@
   const submit   = document.getElementById("cvSubmit");
   const statusEl = document.getElementById("cvStatus");
 
-  /* ---- Toast ---- */
   function toast(kind, title, msg) {
     let wrap = document.querySelector(".toast-wrap");
     if (!wrap) {
@@ -49,7 +49,6 @@
   }
   const setStatus = (kind, text) => { statusEl.className = "status " + kind; statusEl.textContent = text; };
 
-  /* ---- File UX ---- */
   const extOf = (n) => n.slice(n.lastIndexOf(".")).toLowerCase();
   function showChosen(file) {
     chosenEl.classList.add("show");
@@ -64,7 +63,6 @@
     if (e.dataTransfer.files[0]) { fileEl.files = e.dataTransfer.files; showChosen(e.dataTransfer.files[0]); }
   });
 
-  /* ---- Validation (these messages are safe + user-facing) ---- */
   function validate(email, prompt, file) {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Please enter a valid email address.";
     if (!prompt || prompt.trim().length < 8) return "Add a short enhancement instruction (min 8 chars).";
@@ -74,7 +72,6 @@
     return null;
   }
 
-  /* ---- Map ANY failure to a clean message (no internals leaked) ---- */
   function friendlyError(kind) {
     switch (kind) {
       case "network": return "We couldn't reach the server. Please check your connection or try again shortly.";
@@ -83,7 +80,6 @@
     }
   }
 
-  /* ---- Submit ---- */
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = emailEl.value.trim();
@@ -95,34 +91,28 @@
 
     submit.disabled = true;
     submit.classList.add("loading");
-    setStatus("info", "Uploading & processing…");
+    setStatus("info", "Uploading & notifying…");
 
     try {
       const fd = new FormData();
       fd.append("email", email);
       fd.append("prompt", prompt);
-      fd.append("cv", file, file.name);   // field name "cv" matches multer on the backend
+      fd.append("cv", file, file.name);   // field name "cv" matches the backend
 
       let res;
       try {
         res = await fetch(API_ENDPOINT, { method: "POST", body: fd });
       } catch (netErr) {
-        // Covers Safari "Load failed", Chrome "Failed to fetch", DNS, CORS, offline, etc.
-        console.error("[cv-form] network error:", netErr);      // stays in console only
+        console.error("[cv-form] network error:", netErr);   // console only
         throw { userKind: "network" };
       }
+      if (!res.ok) { console.error("[cv-form] status:", res.status); throw { userKind: "server" }; }
 
-      if (!res.ok) {
-        console.error("[cv-form] server status:", res.status);  // console only
-        throw { userKind: "server" };
-      }
-
-      // Backend returns a minimal, non-sensitive JSON: { ok: true }
       const data = await res.json().catch(() => ({}));
       if (!data.ok) { console.error("[cv-form] unexpected body"); throw { userKind: "server" }; }
 
-      setStatus("ok", "Submitted! A confirmation email has been sent.");
-      toast("ok", "Request received", "Your CV and prompt were processed and emailed for review.");
+      setStatus("ok", "Submitted! Your request has been emailed for review.");
+      toast("ok", "Request received", "Your CV and prompt were sent successfully.");
       form.reset();
       chosenEl.classList.remove("show");
     } catch (ex) {

@@ -9,11 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <!-- =====================================================================
-       SELF-CONTAINED STYLES
-       Inlined on purpose so this tool page ALWAYS renders correctly,
-       even if external CSS fails to load (wrong path, preview, offline).
-       ===================================================================== -->
+  <!-- SELF-CONTAINED styles so this tool page ALWAYS renders correctly,
+       even if external CSS fails to load. -->
   <style>
     :root{
       --bg:#070A12; --surface:rgba(20,26,42,.6); --surface-solid:#10162A;
@@ -41,39 +38,27 @@
     a{color:inherit;text-decoration:none}
     h1,h2,h3{font-family:var(--fd);letter-spacing:-.015em;line-height:1.15}
     button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit}
-
     .card{
       width:100%; max-width:560px; position:relative; overflow:hidden;
       background:var(--surface); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
       border:1px solid var(--border); border-radius:var(--radius);
       padding:40px 38px; box-shadow:0 30px 80px -30px rgba(0,0,0,.7);
     }
-    /* subtle gradient hairline border */
     .card::before{
       content:""; position:absolute; inset:0; border-radius:var(--radius); padding:1px; pointer-events:none;
       background:linear-gradient(140deg,var(--accent),transparent 42%,transparent 58%,var(--accent-2));
       -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
       -webkit-mask-composite:xor; mask-composite:exclude; opacity:.55;
     }
-    .back{
-      font-family:var(--fm); font-size:.75rem; color:var(--text-muted);
-      display:inline-flex; align-items:center; gap:7px; margin-bottom:22px; transition:color .2s;
-    }
+    .back{font-family:var(--fm);font-size:.75rem;color:var(--text-muted);display:inline-flex;align-items:center;gap:7px;margin-bottom:22px;transition:color .2s}
     .back:hover{color:var(--accent)}
-
     .head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
-    .icon{
-      width:46px;height:46px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;font-size:1.35rem;
-      background:linear-gradient(120deg,var(--accent-soft),var(--accent-2-soft));
-      border:1px solid var(--border-strong); box-shadow:0 0 26px -8px var(--glow);
-    }
+    .icon{width:46px;height:46px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;font-size:1.35rem;
+      background:linear-gradient(120deg,var(--accent-soft),var(--accent-2-soft));border:1px solid var(--border-strong);box-shadow:0 0 26px -8px var(--glow)}
     .title{font-size:1.4rem;font-weight:600}
-    .badge{
-      font-family:var(--fm);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
-      background:var(--accent-soft);border:1px solid var(--border-strong);border-radius:999px;padding:3px 9px;margin-left:auto;
-    }
+    .badge{font-family:var(--fm);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
+      background:var(--accent-soft);border:1px solid var(--border-strong);border-radius:999px;padding:3px 9px;margin-left:auto}
     .desc{font-size:.9rem;color:var(--text-dim);margin:14px 0 28px;line-height:1.6}
-
     form{display:flex;flex-direction:column;gap:18px}
     .field{display:flex;flex-direction:column;gap:8px}
     .field label{font-family:var(--fm);font-size:.72rem;color:var(--text-dim);letter-spacing:.03em}
@@ -81,16 +66,13 @@
     input[type=email],textarea{
       font-family:var(--fb);font-size:.92rem;color:var(--text);width:100%;
       background:var(--surface-solid);border:1px solid var(--border);border-radius:11px;padding:13px 14px;
-      transition:border-color .2s,box-shadow .2s; resize:vertical;
+      transition:border-color .2s,box-shadow .2s;resize:vertical;
     }
     textarea{min-height:100px;line-height:1.55}
     input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
     input::placeholder,textarea::placeholder{color:var(--text-muted)}
-
-    .drop{
-      position:relative;border:1.5px dashed var(--border-strong);border-radius:12px;
-      padding:26px 16px;text-align:center;cursor:pointer;background:var(--surface-solid);transition:all .2s;
-    }
+    .drop{position:relative;border:1.5px dashed var(--border-strong);border-radius:12px;
+      padding:26px 16px;text-align:center;cursor:pointer;background:var(--surface-solid);transition:all .2s}
     .drop:hover,.drop.dragover{border-color:var(--accent);background:var(--accent-soft)}
     .drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
     .drop .di{font-size:1.5rem;margin-bottom:8px}
@@ -99,28 +81,21 @@
     .chosen{margin-top:11px;font-family:var(--fm);font-size:.74rem;color:var(--accent);
       display:none;align-items:center;gap:6px;justify-content:center;word-break:break-all}
     .chosen.show{display:flex}
-
-    .submit{
-      margin-top:6px;font-family:var(--fm);font-size:.9rem;font-weight:500;color:#07101E;
+    .submit{margin-top:6px;font-family:var(--fm);font-size:.9rem;font-weight:500;color:#07101E;
       padding:15px 18px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:10px;
       background:linear-gradient(120deg,var(--accent),var(--accent-2));
-      box-shadow:0 10px 30px -10px var(--glow); transition:transform .2s,box-shadow .2s,opacity .2s;
-    }
+      box-shadow:0 10px 30px -10px var(--glow);transition:transform .2s,box-shadow .2s,opacity .2s}
     .submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 14px 40px -10px var(--glow)}
     .submit:disabled{opacity:.6;cursor:not-allowed}
     .submit .sp{width:16px;height:16px;border-radius:50%;border:2px solid rgba(7,16,30,.35);
       border-top-color:#07101E;animation:spin .7s linear infinite;display:none}
     .submit.loading .sp{display:inline-block}
     @keyframes spin{to{transform:rotate(360deg)}}
-
     .status{font-family:var(--fm);font-size:.74rem;min-height:17px;margin-top:2px;line-height:1.45}
     .status.ok{color:var(--ok)} .status.err{color:var(--err)} .status.info{color:var(--text-muted)}
-
     .note{margin-top:22px;padding:13px 15px;border:1px solid var(--border);border-radius:11px;
       background:var(--surface-solid);font-size:.72rem;color:var(--text-muted);line-height:1.55}
     .note code{font-family:var(--fm);color:var(--text-dim)}
-
-    /* toast */
     .toast-wrap{position:fixed;bottom:22px;right:22px;z-index:50;display:flex;flex-direction:column;gap:10px;max-width:340px}
     .toast{display:flex;gap:10px;align-items:flex-start;background:var(--surface-solid);
       border:1px solid var(--border-strong);border-left:3px solid var(--accent);border-radius:11px;
@@ -130,7 +105,6 @@
     .toast b{display:block;font-size:.82rem;margin-bottom:2px}
     .toast span{color:var(--text-muted);font-size:.74rem}
     @keyframes tin{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
-
     @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
     @media (max-width:480px){.card{padding:30px 22px}}
   </style>
@@ -138,15 +112,14 @@
 <body>
   <div class="card">
     <a href="index.html" class="back"><span aria-hidden="true">←</span> Back to portfolio</a>
-
     <div class="head">
       <div class="icon" aria-hidden="true">🧠</div>
       <div class="title">CV Enhancer</div>
       <span class="badge">AI Tool</span>
     </div>
     <p class="desc">
-      Upload your CV and describe how you'd like it sharpened. Your request is sent securely
-      to the backend, packaged, and emailed for review — you'll get a confirmation right here.
+      Upload your CV and describe how you'd like it sharpened. On submit, your request is
+      sent securely to the backend and emailed for review — you'll get a confirmation right here.
     </p>
 
     <form id="cvForm" novalidate>
@@ -154,12 +127,10 @@
         <label for="cvEmail">Your email <span class="req">*</span></label>
         <input type="email" id="cvEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
       </div>
-
       <div class="field">
         <label for="cvPrompt">Enhancement request <span class="req">*</span></label>
         <textarea id="cvPrompt" name="prompt" placeholder="e.g. Tailor my CV for a Senior Cloud Engineer role, ATS-friendly, quantified impact."></textarea>
       </div>
-
       <div class="field">
         <label for="cvFile">CV file <span class="req">*</span></label>
         <div class="drop" id="cvDrop">
@@ -170,12 +141,10 @@
         </div>
         <div class="chosen" id="cvFileChosen" aria-live="polite"></div>
       </div>
-
       <button type="submit" class="submit" id="cvSubmit">
         <span class="sp" aria-hidden="true"></span>
         <span class="label">Submit for enhancement</span>
       </button>
-
       <p class="status info" id="cvStatus" role="status" aria-live="polite"></p>
     </form>
 
