@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Enhancer — AI Tools | Parthasarathy T</title>
+  <meta name="description" content="Upload your CV and an enhancement prompt — the request is processed and emailed for review." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/ai-tools.css" />
+</head>
+<body>
+  <div class="tool-wrap">
+    <div class="tool-card">
+      <a href="index.html" class="tool-back"><span aria-hidden="true">←</span> Back to portfolio</a>
+
+      <div class="tool-head">
+        <div class="tool-icon" aria-hidden="true">🧠</div>
+        <div class="tool-title">CV Enhancer</div>
+      </div>
+      <p class="tool-desc">
+        Upload your CV and describe how you'd like it sharpened. Your request is sent to the
+        backend, packaged, and emailed for review — you'll get a confirmation on screen.
+      </p>
+
+      <form class="cv-form" id="cvForm" novalidate>
+        <div class="field">
+          <label for="cvEmail">Your email <span class="req">*</span></label>
+          <input type="email" id="cvEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+
+        <div class="field">
+          <label for="cvPrompt">Enhancement request <span class="req">*</span></label>
+          <textarea id="cvPrompt" name="prompt" placeholder="e.g. Tailor my CV for a Senior Cloud Engineer role focusing on AWS and Kubernetes." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="cvFile">CV file <span class="req">*</span></label>
+          <div class="file-drop" id="cvDrop">
+            <input type="file" id="cvFile" name="cv" accept=".pdf,.docx,.txt" required />
+            <div class="file-drop-icon" aria-hidden="true">📎</div>
+            <div class="file-drop-text">Drag &amp; drop or click to upload</div>
+            <div class="file-drop-hint">.pdf · .docx · .txt — max 5&nbsp;MB</div>
+          </div>
+          <div class="file-chosen" id="cvFileChosen" aria-live="polite"></div>
+        </div>
+
+        <button type="submit" class="cv-submit" id="cvSubmit">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="label">Submit for enhancement</span>
+        </button>
+
+        <p class="cv-status info" id="cvStatus" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="tool-note">
+        🔒 Your file is sent over HTTPS to the backend and used only to generate the emailed
+        request. The API endpoint is configured in <code>js/cv-form.js</code> (<code>API_ENDPOINT</code>).
+      </div>
+    </div>
+  </div>
+
+  <!-- theme persistence + form handler -->
+  <script src="js/main.js"></script>
+  <script src="js/cv-form.js"></script>
+</body>
+</html>

@@ -1,8 +1,4 @@
-/* =========================================================================
-   data/projects/project-3.js
-   Clone this file to add another project. Keep each file small & readable.
-   ========================================================================= */
-
+/* data/projects/project-3.js — Clone this file to add another project. */
 window.registerProject({
   order: 3,
   title: "deflector-rag — Lightweight RAG Microservice",

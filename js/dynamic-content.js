@@ -1,57 +1,38 @@
 /* =========================================================================
-   js/dynamic-content.js
-   -------------------------------------------------------------------------
-   Reads window.PortfolioData (about + projects) and paints:
-     - the sidebar profile (name, title, status, socials)
-     - the About section (bio + tagline)
-     - the Projects feed (one card per registered project, sorted by order)
-   You never edit this file to add content — only the data/* files.
+   js/dynamic-content.js — paints sidebar profile, About, and Projects feed
+   from window.PortfolioData (about + self-registered projects).
    ========================================================================= */
-
 (function () {
   "use strict";
-
   const data = window.PortfolioData || {};
   const esc = (s) => String(s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;")
     .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-
-  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
   const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+  const setHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 
-  /* ---- Profile (sidebar) + About section ---- */
   function renderAbout() {
     const a = data.about;
     if (!a) return;
-
     setText("profileName", a.name);
-    set("profileTitle", esc(a.title).replace(/ · /, "<br>· "));
     setText("profileStatus", a.status);
     setText("profileMeta", `${a.location} · ${a.badge}`);
     setText("aboutTagline", a.tagline);
     setText("aboutBio", a.bio);
     setText("contactEmail", a.email);
-
     const emailBtn = document.getElementById("contactEmailBtn");
     if (emailBtn) emailBtn.href = "mailto:" + a.email;
 
-    // Social links (sidebar shows short codes, contact shows full labels)
-    const shortRow = (a.socials || []).map((s) =>
-      `<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${esc(s.short)}</a>`).join("");
-    set("socialShort", shortRow);
-
-    const fullRow = (a.socials || []).map((s) =>
-      `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join("");
-    set("socialFull", fullRow);
+    setHTML("socialShort", (a.socials || []).map((s) =>
+      `<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${esc(s.short)}</a>`).join(""));
+    setHTML("socialFull", (a.socials || []).map((s) =>
+      `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join(""));
   }
 
-  /* ---- Projects feed ---- */
   function renderProjects() {
     const list = document.getElementById("projects-list");
     if (!list || !data.projects) return;
-
     const projects = data.projects.slice().sort((x, y) => (x.order || 99) - (y.order || 99));
-
     list.innerHTML = projects.map((p) => {
       const tech = (p.tech || []).map((t) => `<span class="tech-tag">${esc(t)}</span>`).join("");
       const links = p.links
@@ -77,7 +58,6 @@
     renderProjects();
     document.dispatchEvent(new CustomEvent("content:rendered"));
   }
-
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot);
   } else { boot(); }

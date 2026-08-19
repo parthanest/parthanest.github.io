@@ -1,8 +1,4 @@
-/* =========================================================================
-   data/projects/project-2.js
-   Clone this file to add another project. Keep each file small & readable.
-   ========================================================================= */
-
+/* data/projects/project-2.js — Clone this file to add another project. */
 window.registerProject({
   order: 2,
   title: "BUPA — Cloud Run, Apigee & Vertex AI Model Deployment",

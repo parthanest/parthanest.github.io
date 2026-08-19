@@ -13,14 +13,11 @@
   <link rel="stylesheet" href="css/ai-tools.css" />
 </head>
 <body>
-
   <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 
   <div class="layout">
-
-    <!-- ===================== SIDEBAR (profile + nav) ===================== -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-top">
         <div class="avatar-ring">
@@ -41,12 +38,10 @@
         <a href="#about" class="nav-link" data-section="about">About</a>
         <a href="#projects" class="nav-link" data-section="projects">Projects</a>
         <a href="#contact" class="nav-link" data-section="contact">Contact</a>
-
-        <!-- AI Tools button → redirects to the under-construction page -->
-        <a href="under-construction.html" class="ai-tools-btn" aria-label="AI Tools (coming soon)">
+        <!-- AI Tools button → the live CV Enhancer tool page -->
+        <a href="cv-enhancer.html" class="ai-tools-btn" aria-label="AI Tools — CV Enhancer">
           <span class="ai-ico" aria-hidden="true">🧠</span>
           <span>AI Tools</span>
-          <span class="soon">Soon</span>
           <span class="ai-arrow" aria-hidden="true">→</span>
         </a>
       </nav>
@@ -61,9 +56,7 @@
       </div>
     </aside>
 
-    <!-- ===================== MAIN (bio + projects feed) ===================== -->
     <main class="main">
-
       <section id="home" class="section hero reveal">
         <p class="eyebrow">// forward-deployed engineer</p>
         <h2 class="hero-headline">Parthasarathy T</h2>
@@ -74,7 +67,7 @@
         </p>
         <div class="hero-cta">
           <a href="#projects" class="btn btn-primary">View projects</a>
-          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+          <a href="cv-enhancer.html" class="btn btn-ghost">Try the CV Enhancer →</a>
         </div>
       </section>
 
@@ -87,7 +80,6 @@
       <section id="projects" class="section projects reveal">
         <p class="section-eyebrow">02 · Featured work</p>
         <h3 class="section-title">Systems that made it to production.</h3>
-        <!-- One card per registered project (data/projects/project-N.js) -->
         <div id="projects-list"></div>
       </section>
 
@@ -107,19 +99,14 @@
       <footer class="site-footer">
         <p>Built with HTML, CSS &amp; JS · Modular &amp; data-driven · © 2026 Parthasarathy T</p>
       </footer>
-
     </main>
   </div>
 
-  <!-- ===================== SCRIPTS ===================== -->
-  <!-- 1) Core: defines window.registerProject + interactions -->
   <script src="js/main.js"></script>
-  <!-- 2) Data: profile + one file per project (self-register) -->
   <script src="data/about-me.js"></script>
   <script src="data/projects/project-1.js"></script>
   <script src="data/projects/project-2.js"></script>
   <script src="data/projects/project-3.js"></script>
-  <!-- 3) Render everything -->
   <script src="js/dynamic-content.js"></script>
 </body>
 </html>

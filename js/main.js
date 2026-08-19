@@ -1,26 +1,15 @@
 /* =========================================================================
-   js/main.js
-   -------------------------------------------------------------------------
-   - Provides the project registry (window.registerProject) that each
-     data/projects/project-N.js file calls to self-register.
-   - Handles theme toggle, mobile nav, scroll-spy and reveal animations.
+   js/main.js — project registry + theme, mobile nav, scroll-spy, reveals.
    ========================================================================= */
-
 (function () {
   "use strict";
 
-  /* ---- Project registry ---------------------------------------------
-     Each project file calls window.registerProject({...}). We collect
-     them here so dynamic-content.js can render them (sorted by order).   */
   window.PortfolioData = window.PortfolioData || {};
   window.PortfolioData.projects = window.PortfolioData.projects || [];
-  window.registerProject = function (project) {
-    window.PortfolioData.projects.push(project);
-  };
+  window.registerProject = function (project) { window.PortfolioData.projects.push(project); };
 
   const root = document.documentElement;
 
-  /* ---- Theme toggle (persisted) ---- */
   function initTheme() {
     const toggle = document.getElementById("themeToggle");
     const label = document.getElementById("themeToggleLabel");
@@ -39,7 +28,6 @@
       apply(root.getAttribute("data-theme") === "dark" ? "light" : "dark"));
   }
 
-  /* ---- Mobile nav drawer ---- */
   function initMobileNav() {
     const sidebar = document.getElementById("sidebar");
     const toggle = document.getElementById("mobileNavToggle");
@@ -55,7 +43,6 @@
       }));
   }
 
-  /* ---- Scroll-spy: highlight active nav item ---- */
   function initScrollSpy() {
     const sections = document.querySelectorAll(".section");
     const links = document.querySelectorAll(".nav-link");
@@ -71,7 +58,6 @@
     sections.forEach((s) => spy.observe(s));
   }
 
-  /* ---- Reveal-on-scroll entrance animations ---- */
   function initReveals() {
     const els = document.querySelectorAll(".reveal");
     if (!els.length) return;
@@ -87,7 +73,5 @@
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", boot);
   } else { boot(); }
-
-  // Re-scan reveals after dynamic cards are injected.
   document.addEventListener("content:rendered", initReveals);
 })();

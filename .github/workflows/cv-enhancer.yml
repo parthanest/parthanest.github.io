@@ -1,32 +1,45 @@
 # =============================================================================
 # .github/workflows/cv-enhancer.yml
 # -----------------------------------------------------------------------------
-# RESERVED — future AI automation pipeline for the CV Enhancer tool.
+# CI for the CV Enhancer backend: installs deps and syntax-checks the server
+# so the Node service stays deployable. (Email sending is NOT run in CI.)
 #
-# This is an intentional placeholder so the automation slot exists in the repo.
-# The "AI Tools" button currently points to under-construction.html; once the
-# tool is ready, this workflow will process an uploaded CV with Gemini.
-#
-# Planned trigger + secrets (not active yet):
-#   on: repository_dispatch  ->  types: [cv-enhancer-request]
-#   secrets.LLM_API_KEY      ->  mapped to GEMINI_API_KEY in the job
+# The Gmail App Password is provided to the RUNTIME host as an env var/secret
+# (GMAIL_APP_PASSWORD), never printed in logs and never needed at build time.
 # =============================================================================
 
-name: CV Enhancer (reserved)
+name: CV Enhancer Backend CI
 
-# Manual-only for now so nothing runs by accident.
 on:
+  push:
+    paths:
+      - "server/**"
+      - ".github/workflows/cv-enhancer.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  placeholder:
-    name: Placeholder — pipeline not yet implemented
+  build:
+    name: Install & syntax-check
     runs-on: ubuntu-latest
     steps:
-      - name: Announce reserved status
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install backend dependencies
+        working-directory: server
+        run: npm install
+
+      - name: Syntax-check server files
+        working-directory: server
         run: |
-          echo "🚧 CV Enhancer pipeline is reserved and not yet implemented."
-          echo "The AI Tools button currently links to under-construction.html."
+          node --check server.js
+          node --check mailer.js
+          echo "✅ Backend files parse cleanly."
