@@ -1,111 +1,78 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parthasarathy T — Forward-Deployed Engineer | GCP, DevOps & MLOps</title>
-  <meta name="description" content="Parthasarathy T — Forward-Deployed Engineer specializing in Google Cloud, DevOps, and MLOps across FinTech, Healthcare and Media." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/ai-tools.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Parthasarathy T — Forward Deployed Engineer specializing in GCP, DevOps, MLOps and enterprise delivery.">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Parthasarathy T | Forward Deployed Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/app.js" defer></script>
 </head>
 <body>
-  <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="loader" id="loader" aria-hidden="true"><span>PT</span></div>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Home">PT<span>.</span></a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#profile">Profile</a><a href="#expertise">Expertise</a><a href="#portfolio">Portfolio</a><a href="#credentials">Credentials</a><a class="nav-cta" href="#contact">Private inquiry</a>
+    </nav>
+  </header>
 
-  <div class="layout">
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-top">
-        <div class="avatar-ring">
-          <div class="avatar-wrap">
-            <img src="assets/images/profile.png" alt="Portrait of Parthasarathy T" class="avatar" />
-          </div>
-        </div>
-        <h1 class="name" id="profileName">Parthasarathy T</h1>
-        <p class="role-tag" id="profileTitle">Forward-Deployed Engineer</p>
-        <div class="status-pill">
-          <span class="pulse-dot" aria-hidden="true"></span>
-          <span id="profileStatus">Open to select engagements</span>
-        </div>
+  <main>
+    <section class="hero section" aria-labelledby="hero-title">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Forward Deployed Engineering · GCP · DevOps · MLOps</p>
+        <h1 id="hero-title">Engineering <em>critical systems</em> for ambitious enterprises.</h1>
+        <p class="hero-lede">I translate complex cloud architecture into secure, production-ready platforms, partnering directly with teams from proof of concept through go-live.</p>
+        <div class="hero-actions"><a class="button gold" href="#portfolio">Explore selected work</a><a class="text-link" href="#contact">Start a conversation <span>↗</span></a></div>
+        <div class="hero-metrics" aria-label="Career highlights"><div><strong>5</strong><span>Years of impact</span></div><div><strong>90+</strong><span>Workloads modernized</span></div><div><strong>75%+</strong><span>Cost reduction delivered</span></div><div><strong>4×</strong><span>Google Cloud certified</span></div></div>
       </div>
-
-      <nav class="sidebar-nav" aria-label="Section navigation">
-        <a href="#home" class="nav-link active" data-section="home">Home</a>
-        <a href="#about" class="nav-link" data-section="about">About</a>
-        <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
-        <a href="cv-enhancer.html" class="ai-tools-btn" aria-label="AI Tools — CV Enhancer">
-          <span class="ai-ico" aria-hidden="true">🧠</span>
-          <span>AI Tools</span>
-          <span class="ai-arrow" aria-hidden="true">→</span>
-        </a>
-      </nav>
-
-      <div class="sidebar-bottom">
-        <div class="meta-line" id="profileMeta">Bengaluru, IN · 4x GCP Certified</div>
-        <div class="social-row" id="socialShort"></div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Switch color theme">
-          <span class="theme-toggle-track"><span class="theme-toggle-thumb"></span></span>
-          <span class="theme-toggle-label" id="themeToggleLabel">Dark</span>
-        </button>
+      <div class="portrait-wrap reveal" data-delay="150">
+        <div class="portrait-frame"><img src="assets/images/profile.jpg" alt="Portrait of Parthasarathy T" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="portrait-fallback" hidden>PT</div></div>
+        <span class="portrait-line one"></span><span class="portrait-line two"></span>
+        <p>Chennai · Bengaluru · Global delivery</p>
       </div>
-    </aside>
+    </section>
 
-    <main class="main">
-      <section id="home" class="section hero reveal">
-        <p class="eyebrow">// forward-deployed engineer</p>
-        <h2 class="hero-headline">Parthasarathy T</h2>
-        <p class="hero-tagline" id="aboutTagline">Loading…</p>
-        <p class="hero-sub">
-          5 years turning architecture into production-ready systems on Google Cloud —
-          across FinTech, Healthcare and Media.
-        </p>
-        <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary">View projects</a>
-          <a href="cv-enhancer.html" class="btn btn-ghost">Try the CV Enhancer →</a>
-        </div>
-      </section>
+    <section class="statement section reveal" id="profile">
+      <p class="section-index">01 / Profile</p>
+      <div><h2>Architecture is only valuable when it performs in the real world.</h2><p>As a Forward Deployed Engineer, I work at the intersection of infrastructure, product, and client outcomes. My portfolio spans fintech, healthcare, and media, with hands-on ownership of cloud migration, platform security, release engineering, API delivery, and production model serving.</p></div>
+    </section>
 
-      <section id="about" class="section about reveal">
-        <p class="section-eyebrow">01 · About</p>
-        <h3 class="section-title">The bridge between prototype and production.</h3>
-        <p class="about-copy" id="aboutBio">Loading bio…</p>
-      </section>
+    <section class="section" id="expertise">
+      <div class="section-heading reveal"><p class="eyebrow">Signature capabilities</p><h2>A disciplined practice for consequential systems.</h2></div>
+      <div class="expertise-grid">
+        <article class="expertise-card reveal"><span>01</span><h3>Cloud Foundations</h3><p>GCP landing zones, GKE, Cloud Run, Compute Engine, networking, IAM, VPC Service Controls and infrastructure as code.</p></article>
+        <article class="expertise-card reveal"><span>02</span><h3>Delivery Systems</h3><p>Secure multi-stage CI/CD with Terraform, Cloud Build, Jenkins, GitHub Actions, ArgoCD, GitLab and Bitbucket Pipelines.</p></article>
+        <article class="expertise-card reveal"><span>03</span><h3>AI Productionization</h3><p>Vertex AI endpoints, Model Garden, MLflow, Airflow and cloud-native model-serving workflows integrated with product services.</p></article>
+        <article class="expertise-card reveal"><span>04</span><h3>Client Engineering</h3><p>POCs, architecture translation, stakeholder alignment, solution hardening, incident investigation and go-live stewardship.</p></article>
+      </div>
+    </section>
 
-      <section id="projects" class="section projects reveal">
-        <p class="section-eyebrow">02 · Featured work</p>
-        <h3 class="section-title">Systems that made it to production.</h3>
-        <div id="projects-list"></div>
-      </section>
+    <section class="section portfolio" id="portfolio">
+      <div class="section-heading reveal"><p class="eyebrow">Selected engagements</p><h2>High-impact initiatives, delivered end to end.</h2></div>
+      <div id="project-grid" class="project-grid" aria-live="polite"></div>
+      <p id="project-status" class="project-status">Curating portfolio…</p>
+    </section>
 
-      <section id="contact" class="section contact reveal">
-        <p class="section-eyebrow">03 · Contact</p>
-        <h3 class="section-title">Let's talk about your deployment.</h3>
-        <p class="contact-copy">
-          If you have a model that works in a notebook and needs to work in production —
-          or an on-prem estate that needs to land on GCP — that's the conversation I want to have.
-        </p>
-        <a href="mailto:parthaofficial@hotmail.com" id="contactEmailBtn" class="btn btn-primary btn-large">
-          <span id="contactEmail">parthaofficial@hotmail.com</span>
-        </a>
-        <div class="social-row contact-socials" id="socialFull"></div>
-      </section>
+    <section class="section credentials" id="credentials">
+      <div class="section-heading reveal"><p class="eyebrow">Credentials & recognition</p><h2>Technical depth, validated.</h2></div>
+      <div class="credential-layout reveal">
+        <div class="credential-feature"><span>Google Cloud</span><strong>4×</strong><p>Professional certifications across Architecture, DevOps Engineering and Database Engineering.</p></div>
+        <ul><li><span>2025</span>Professional Cloud DevOps Engineer</li><li><span>2024</span>Professional Cloud Architect</li><li><span>2024</span>Professional Cloud Database Engineer</li><li><span>2023</span>HashiCorp Terraform Associate</li><li><span>3×</span>Star of the Month</li></ul>
+      </div>
+    </section>
 
-      <footer class="site-footer">
-        <p>Built with HTML, CSS &amp; JS · Modular &amp; data-driven · © 2026 Parthasarathy T</p>
-      </footer>
-    </main>
-  </div>
-
-  <script src="js/main.js"></script>
-  <script src="data/about-me.js"></script>
-  <script src="data/projects/project-1.js"></script>
-  <script src="data/projects/project-2.js"></script>
-  <script src="data/projects/project-3.js"></script>
-  <script src="js/dynamic-content.js"></script>
+    <section class="contact section reveal" id="contact">
+      <p class="eyebrow">Private inquiry</p><h2>Let’s build something that performs under pressure.</h2><p>Available for conversations around forward-deployed engineering, GCP architecture, DevOps modernization and production AI systems.</p>
+      <a class="button gold" href="mailto:parthaofficial@hotmail.com">parthaofficial@hotmail.com</a>
+    </section>
+  </main>
+  <footer><a class="brand" href="#top">PT<span>.</span></a><p>© <span id="year"></span> Parthasarathy T. Crafted with intent.</p><a href="#top">Return to top ↑</a></footer>
 </body>
 </html>
