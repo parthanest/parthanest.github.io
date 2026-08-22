@@ -1,0 +1,108 @@
+/* ==========================================================================
+   00-base.css — Design tokens, reset, typography, shared primitives
+   Edit colors, fonts, and spacing HERE — everything else inherits from this.
+   ========================================================================== */
+
+:root {
+  /* Background gradient */
+  --bg-top:    #0A0E14;
+  --bg-bottom: #0D1420;
+
+  /* Accents */
+  --gold:      #C9A96E;
+  --gold-dim:  rgba(201, 169, 110, 0.55);
+  --gold-line: rgba(201, 169, 110, 0.18);
+  --gold-glow: rgba(201, 169, 110, 0.10);
+  --platinum:  #E8E3D9;
+
+  /* Text */
+  --text:   #F5F3EE;
+  --muted:  #8A8F98;
+
+  /* Glass surfaces */
+  --glass-bg:     rgba(255, 255, 255, 0.035);
+  --glass-border: rgba(201, 169, 110, 0.15);
+
+  /* Type */
+  --font-head: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Layout rhythm */
+  --max:       1140px;
+  --gutter:    clamp(1.5rem, 6vw, 6rem);
+  --section-y: clamp(5.5rem, 13vw, 10rem);
+
+  --radius: 16px;
+}
+
+/* ---- Reset ------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.7;
+  background: linear-gradient(165deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a   { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul  { list-style: none; }
+
+::selection { background: var(--gold); color: var(--bg-top); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 9px; }
+::-webkit-scrollbar-track { background: var(--bg-top); }
+::-webkit-scrollbar-thumb { background: rgba(201,169,110,0.25); border-radius: 20px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201,169,110,0.45); }
+
+/* ---- Shared section primitives ---------------------------------------- */
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.section__head { margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
+
+.section__index {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.section__title {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+.section__lead {
+  margin-top: 1rem;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+/* Thin gold hairline divider */
+.hairline {
+  height: 1px;
+  margin-top: 1.6rem;
+  background: linear-gradient(90deg, var(--gold-line), transparent);
+}

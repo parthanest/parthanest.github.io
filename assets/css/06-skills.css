@@ -1,0 +1,60 @@
+/* ==========================================================================
+   06-skills.css — Grouped skill cards
+   ========================================================================== */
+
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.skill-group {
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: border-color 0.4s ease, transform 0.4s ease;
+}
+.skill-group:hover {
+  border-color: rgba(201, 169, 110, 0.35);
+  transform: translateY(-3px);
+}
+
+.skill-group__title {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.12rem;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+.skill-group__title::before {
+  content: "";
+  width: 20px; height: 1px;
+  background: var(--gold);
+}
+
+.skill-group__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.skill-chip {
+  font-size: 0.78rem;
+  color: var(--text);
+  font-weight: 300;
+  padding: 0.34rem 0.8rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+}
+.skill-chip:hover {
+  border-color: var(--gold-line);
+  color: var(--platinum);
+  background: rgba(201, 169, 110, 0.07);
+}

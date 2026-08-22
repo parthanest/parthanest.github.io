@@ -6,42 +6,33 @@
   <meta name="description" content="Parthasarathy T (Partha) — Forward Deployed Engineer specializing in GCP cloud infrastructure, DevOps, and client solutions." />
   <meta name="author" content="Parthasarathy T" />
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Parthasarathy T — Forward Deployed Engineer" />
   <meta property="og:description" content="GCP Cloud Infrastructure · DevOps · Client Solutions" />
 
-  <!-- Title is set dynamically from data.js, with a static fallback -->
   <title>Parthasarathy T — Forward Deployed Engineer</title>
 
-  <!-- Preconnect + Google Fonts: Playfair Display (headings) + Inter (body) -->
+  <!-- Google Fonts: Playfair Display (headings) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <!-- Modular CSS: one file per section (edit each independently) -->
+  <link rel="stylesheet" href="assets/css/00-base.css" />
+  <link rel="stylesheet" href="assets/css/01-nav.css" />
+  <link rel="stylesheet" href="assets/css/02-hero.css" />
+  <link rel="stylesheet" href="assets/css/03-about.css" />
+  <link rel="stylesheet" href="assets/css/04-experience.css" />
+  <link rel="stylesheet" href="assets/css/05-projects.css" />
+  <link rel="stylesheet" href="assets/css/06-skills.css" />
+  <link rel="stylesheet" href="assets/css/07-credentials.css" />
+  <link rel="stylesheet" href="assets/css/08-connect.css" />
 </head>
 <body>
 
-  <!-- ============================================================= -->
-  <!-- PRELOADER — gold line draw, then fades into hero              -->
-  <!-- ============================================================= -->
-  <div class="preloader" id="preloader" aria-hidden="true">
-    <div class="preloader__line"></div>
-    <div class="preloader__name" id="preloaderName"></div>
-  </div>
-
-  <!-- Grain / noise overlay (purely decorative) -->
-  <div class="grain" aria-hidden="true"></div>
-
-  <!-- Cursor-reactive glow (desktop only, JS-controlled) -->
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-
-  <!-- ============================================================= -->
-  <!-- NAV                                                           -->
-  <!-- ============================================================= -->
+  <!-- ================= NAV ================= -->
   <header class="nav" id="nav">
-    <a href="#hero" class="nav__brand" id="navBrand" aria-label="Home"></a>
+    <a href="#hero" class="nav__brand" aria-label="Home">Parthasarathy <span>T</span></a>
     <nav class="nav__links" aria-label="Primary">
       <a href="#about" class="nav__link">About</a>
       <a href="#experience" class="nav__link">Experience</a>
@@ -49,113 +40,365 @@
       <a href="#skills" class="nav__link">Skills</a>
       <a href="#certifications" class="nav__link">Certifications</a>
     </nav>
-    <a href="#" class="nav__cta" id="navCta" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/parthaofficial/" class="nav__cta" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span>
     </button>
   </header>
 
   <main>
-    <!-- ============================================================= -->
-    <!-- HERO — canvas particle field injected by JS                  -->
-    <!-- ============================================================= -->
+
+    <!-- ================= HERO ================= -->
     <section class="hero" id="hero">
-      <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
-      <div class="hero__inner" id="heroInner">
-        <!-- Populated from profile{} -->
-      </div>
-      <div class="hero__scroll" aria-hidden="true">
-        <span>Scroll</span>
-        <div class="hero__scroll-line"></div>
+      <div class="hero__inner">
+        <span class="hero__eyebrow">Forward Deployed Engineer</span>
+        <h1 class="hero__name">Parthasarathy&nbsp;<em>T</em></h1>
+        <p class="hero__title">GCP Cloud Infrastructure · DevOps · Client Solutions</p>
+        <p class="hero__subtitle">Based in Bengaluru, India</p>
+        <p class="hero__tagline">
+          5+ years embedded within enterprise teams — turning cloud architecture
+          into production systems across Fintech, Healthcare, and Media.
+        </p>
+        <div class="hero__meta">
+          <a class="hero__cta" href="https://www.linkedin.com/in/parthaofficial/" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+          <span class="hero__location">Bengaluru, India</span>
+        </div>
       </div>
     </section>
 
-    <!-- ============================================================= -->
-    <!-- ABOUT — populated from profile.about[] and profile.stats[]    -->
-    <!-- ============================================================= -->
+    <!-- ================= ABOUT ================= -->
     <section class="section" id="about">
-      <div class="section__head reveal">
+      <div class="section__head">
         <span class="section__index">01</span>
         <h2 class="section__title">About</h2>
         <div class="hairline"></div>
       </div>
-      <div class="about" id="aboutBody"><!-- rendered --></div>
-      <div class="stats" id="statsStrip"><!-- rendered --></div>
+
+      <div class="about">
+        <p>Forward Deployed Engineer partnering directly with enterprise clients to design, deploy, and optimize cloud solutions on Google Cloud across Fintech, Healthcare, and Media.</p>
+        <p>I embed within client environments and translate architecture into production systems — GCP Compute, Apigee API delivery, and ML/LLM deployment on Vertex AI, Model Garden, and MLflow.</p>
+        <p>Track record leading on-prem to GCP migrations, standing up CI/CD pipelines, and delivering 75%+ infrastructure cost reduction through automated, security-hardened pipelines.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat__value">5+</div>
+          <div class="stat__label">Years in Cloud &amp; DevOps</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">4x</div>
+          <div class="stat__label">Google Cloud Certified</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">75%</div>
+          <div class="stat__label">Infra Cost Reduction</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">90+</div>
+          <div class="stat__label">Workloads Migrated</div>
+        </div>
+      </div>
     </section>
 
-    <!-- ============================================================= -->
-    <!-- EXPERIENCE — timeline rendered from experience[]              -->
-    <!-- ============================================================= -->
+    <!-- ================= EXPERIENCE ================= -->
     <section class="section" id="experience">
-      <div class="section__head reveal">
+      <div class="section__head">
         <span class="section__index">02</span>
         <h2 class="section__title">Experience</h2>
         <div class="hairline"></div>
       </div>
-      <div class="timeline" id="timeline">
-        <div class="timeline__progress" id="timelineProgress" aria-hidden="true"></div>
-        <!-- rendered -->
+
+      <div class="timeline">
+
+        <div class="tl-item is-current">
+          <div class="tl-item__head">
+            <h3 class="tl-item__role">Senior Associate — Infrastructure (Forward Deployed)<span class="tl-item__badge">Current</span></h3>
+            <span class="tl-item__period">Jul 2025 — Present</span>
+          </div>
+          <div class="tl-item__company">Publicis Sapient</div>
+          <ul class="tl-item__points">
+            <li>Built multi-stage CI/CD (Terraform Enterprise, Cloud Build) inside client environments.</li>
+            <li>Implemented VPC Service Controls &amp; IAM guardrails for regulated client workloads.</li>
+            <li>Designed and deployed 20+ Apigee API proxies for secure API delivery.</li>
+            <li>Deployed Vertex AI endpoints integrated with Cloud Run for real-time inference.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-item__head">
+            <h3 class="tl-item__role">DevOps Engineer (Client-Facing)</h3>
+            <span class="tl-item__period">Jul 2023 — Jul 2025</span>
+          </div>
+          <div class="tl-item__company">Niveus Solutions Pvt. Ltd.</div>
+          <ul class="tl-item__points">
+            <li>Led a team of 4–5 engineers on client-facing cloud delivery.</li>
+            <li>Drove on-prem to GCP migrations with Terraform IaC — VPC, VPN, IAM, Firewall, DNS, GKE.</li>
+            <li>Ran production GKE clusters with hardened node pools and autoscaling across 90+ microservices.</li>
+            <li>Hardened access with Workload Identity + RBAC; deployed Istio service mesh.</li>
+            <li>Standardized deployments with Helm; built observability on Dynatrace &amp; Cloud Monitoring.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-item__head">
+            <h3 class="tl-item__role">Project Engineer</h3>
+            <span class="tl-item__period">Jul 2021 — Jul 2023</span>
+          </div>
+          <div class="tl-item__company">Eratronics Pvt. Ltd.</div>
+          <ul class="tl-item__points">
+            <li>Provisioned 30+ GCP resources across projects and environments.</li>
+            <li>Managed configuration at scale with Ansible.</li>
+            <li>Supported Kafka clusters for high-throughput data pipelines.</li>
+            <li>Built CI/CD with Bitbucket Pipelines and Terraform IaC.</li>
+          </ul>
+        </div>
+
       </div>
     </section>
 
-    <!-- ============================================================= -->
-    <!-- PROJECTS — case-study cards from projects[]                   -->
-    <!-- ============================================================= -->
+    <!-- ================= PROJECTS ================= -->
     <section class="section" id="projects">
-      <div class="section__head reveal">
+      <div class="section__head">
         <span class="section__index">03</span>
         <h2 class="section__title">Selected Work</h2>
         <div class="hairline"></div>
       </div>
-      <div class="projects" id="projectsGrid"><!-- rendered --></div>
+
+      <div class="projects">
+
+        <article class="project">
+          <div class="project__client">Moneycontrol, India</div>
+          <h3 class="project__title">On-Prem to GCP Migration &amp; MLOps Modernization</h3>
+          <div class="project__block">
+            <span class="project__block-label">Challenge</span>
+            <p>A large media platform needed to move 90+ containerized workloads off on-prem infrastructure and modernize a legacy ML workflow — without disrupting production.</p>
+          </div>
+          <div class="project__block">
+            <span class="project__block-label">Approach</span>
+            <p>Forward-deployed with the client's engineering team, I led a 5-engineer migration to GKE and stood up a full DevOps toolchain (Jenkins, GitLab, ArgoCD, SonarQube) on GKE with Istio and Cloud Armor. I re-engineered the on-prem MLflow pipeline into a cloud-native workflow orchestrated by Apache Airflow with GitOps delivery via ArgoCD.</p>
+          </div>
+          <div class="project__block">
+            <span class="project__block-label">Outcome</span>
+            <p>A cloud-native platform with GitOps delivery, service-mesh traffic control, and a modern, reproducible ML pipeline running end-to-end on GCP.</p>
+          </div>
+          <div class="project__tags">
+            <span class="tag">GKE</span><span class="tag">Istio</span><span class="tag">ArgoCD</span>
+            <span class="tag">Cloud Armor</span><span class="tag">MLflow</span>
+            <span class="tag">Airflow</span><span class="tag">SonarQube</span>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project__client">BUPA, UK</div>
+          <h3 class="project__title">Cloud Run, Apigee &amp; Vertex AI Model Deployment</h3>
+          <div class="project__block">
+            <span class="project__block-label">Challenge</span>
+            <p>A healthcare enterprise needed backend services and ML models deployed for secure, real-time consumption within an Agile delivery cadence.</p>
+          </div>
+          <div class="project__block">
+            <span class="project__block-label">Approach</span>
+            <p>As the sole forward-deployed engineer embedded with the client's Agile team, I deployed backend services on Cloud Run integrated with Apigee, then deployed and validated ML models to Vertex AI endpoints wired to Cloud Run for real-time inference. I adapted the MLflow pipeline for cloud execution with Airflow, Jenkins, and ArgoCD.</p>
+          </div>
+          <div class="project__block">
+            <span class="project__block-label">Outcome</span>
+            <p>Production ML models served through governed Apigee APIs and Cloud Run, with a repeatable, cloud-native delivery path from experiment to endpoint.</p>
+          </div>
+          <div class="project__tags">
+            <span class="tag">Cloud Run</span><span class="tag">Apigee</span><span class="tag">Vertex AI</span>
+            <span class="tag">MLflow</span><span class="tag">Airflow</span>
+            <span class="tag">Jenkins</span><span class="tag">ArgoCD</span>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project__client">Client Confidential</div>
+          <h3 class="project__title">Healthcare Insurance Claims Automation</h3>
+          <div class="project__block">
+            <span class="project__block-label">Challenge</span>
+            <p>A healthcare insurer wanted to eliminate manual claim reviews and reimburse customers instantly.</p>
+          </div>
+          <div class="project__block">
+            <span class="project__block-label">Approach</span>
+            <p>Built and deployed an automated claims-processing pipeline using image recognition to read and validate claim documents, triggering instant customer reimbursement.</p>
+          </div>
+          <div class="project__block">
+            <span class="project__block-label">Outcome</span>
+            <p>Automated, near-instant claims processing that removed manual bottlenecks and accelerated customer reimbursement.</p>
+          </div>
+          <div class="project__tags">
+            <span class="tag">Image Recognition</span><span class="tag">Automation</span>
+            <span class="tag">GCP</span><span class="tag">MLOps</span>
+          </div>
+        </article>
+
+      </div>
     </section>
 
-    <!-- ============================================================= -->
-    <!-- SKILLS — grouped from skills{}                                -->
-    <!-- ============================================================= -->
+    <!-- ================= SKILLS ================= -->
     <section class="section" id="skills">
-      <div class="section__head reveal">
+      <div class="section__head">
         <span class="section__index">04</span>
         <h2 class="section__title">Skills</h2>
         <div class="hairline"></div>
       </div>
-      <div class="skills" id="skillsGrid"><!-- rendered --></div>
+
+      <div class="skills">
+
+        <div class="skill-group">
+          <h3 class="skill-group__title">Cloud &amp; Compute</h3>
+          <div class="skill-group__items">
+            <span class="skill-chip">Compute Engine</span><span class="skill-chip">GKE</span>
+            <span class="skill-chip">Cloud Run</span><span class="skill-chip">Cloud Functions</span>
+            <span class="skill-chip">Cloud Build</span><span class="skill-chip">Pub/Sub</span>
+            <span class="skill-chip">Managed Instance Groups</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group__title">Networking</h3>
+          <div class="skill-group__items">
+            <span class="skill-chip">VPC</span><span class="skill-chip">VPC Peering</span>
+            <span class="skill-chip">Cloud VPN</span><span class="skill-chip">Cloud Interconnect</span>
+            <span class="skill-chip">Load Balancing</span><span class="skill-chip">Cloud NAT</span>
+            <span class="skill-chip">Cloud DNS</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group__title">MLOps / LLMOps</h3>
+          <div class="skill-group__items">
+            <span class="skill-chip">Vertex AI</span><span class="skill-chip">MLflow</span>
+            <span class="skill-chip">Hugging Face</span><span class="skill-chip">Apache Airflow</span>
+            <span class="skill-chip">Python</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group__title">Security &amp; IAM</h3>
+          <div class="skill-group__items">
+            <span class="skill-chip">IAM Policies</span><span class="skill-chip">Service Accounts</span>
+            <span class="skill-chip">Workload Identity</span><span class="skill-chip">VPC Service Controls</span>
+            <span class="skill-chip">Cloud Armor</span><span class="skill-chip">RBAC</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group__title">Containers</h3>
+          <div class="skill-group__items">
+            <span class="skill-chip">Kubernetes (GKE)</span><span class="skill-chip">Docker</span>
+            <span class="skill-chip">Artifact Registry</span><span class="skill-chip">Istio</span>
+            <span class="skill-chip">Helm</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group__title">Infrastructure as Code</h3>
+          <div class="skill-group__items">
+            <span class="skill-chip">Terraform</span><span class="skill-chip">Ansible</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group__title">CI/CD</h3>
+          <div class="skill-group__items">
+            <span class="skill-chip">Jenkins</span><span class="skill-chip">GitLab</span>
+            <span class="skill-chip">GitHub Actions</span><span class="skill-chip">ArgoCD</span>
+            <span class="skill-chip">Bitbucket Pipelines</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group__title">Databases</h3>
+          <div class="skill-group__items">
+            <span class="skill-chip">Cloud SQL</span><span class="skill-chip">PostgreSQL</span>
+            <span class="skill-chip">MySQL</span><span class="skill-chip">BigQuery</span>
+            <span class="skill-chip">Redis Enterprise</span><span class="skill-chip">Memorystore</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h3 class="skill-group__title">Observability</h3>
+          <div class="skill-group__items">
+            <span class="skill-chip">Cloud Monitoring</span><span class="skill-chip">Dynatrace</span>
+            <span class="skill-chip">SonarQube</span>
+          </div>
+        </div>
+
+      </div>
     </section>
 
-    <!-- ============================================================= -->
-    <!-- CERTIFICATIONS + EDUCATION + PUBLICATIONS                     -->
-    <!-- ============================================================= -->
+    <!-- ================= CERTIFICATIONS / EDUCATION / PUBLICATIONS ========= -->
     <section class="section" id="certifications">
-      <div class="section__head reveal">
+      <div class="section__head">
         <span class="section__index">05</span>
         <h2 class="section__title">Certifications &amp; More</h2>
         <div class="hairline"></div>
       </div>
 
       <div class="creds">
-        <div class="creds__col">
-          <h3 class="creds__label reveal">Certifications</h3>
-          <div id="certsList"><!-- rendered --></div>
-        </div>
-        <div class="creds__col">
-          <h3 class="creds__label reveal">Education</h3>
-          <div id="eduList"><!-- rendered --></div>
 
-          <h3 class="creds__label reveal" style="margin-top:2.5rem">Publications</h3>
-          <div id="pubList"><!-- rendered --></div>
+        <div class="creds__group">
+          <h3 class="creds__label">Certifications</h3>
+
+          <div class="cred-item">
+            <span class="cred-item__name">Google Cloud — Professional Cloud DevOps Engineer
+              <span class="cred-item__sub">Google Cloud</span>
+            </span>
+            <span class="cred-item__meta">Aug 2025</span>
+          </div>
+          <div class="cred-item">
+            <span class="cred-item__name">Google Cloud — Professional Cloud Database Engineer
+              <span class="cred-item__sub">Google Cloud</span>
+            </span>
+            <span class="cred-item__meta">Oct 2024</span>
+          </div>
+          <div class="cred-item">
+            <span class="cred-item__name">Google Cloud — Professional Cloud Architect
+              <span class="cred-item__sub">Google Cloud</span>
+            </span>
+            <span class="cred-item__meta">Aug 2024</span>
+          </div>
+          <div class="cred-item">
+            <span class="cred-item__name">HashiCorp Certified: Terraform Associate
+              <span class="cred-item__sub">HashiCorp</span>
+            </span>
+            <span class="cred-item__meta">Sep 2023</span>
+          </div>
         </div>
+
+        <div class="creds__group">
+          <h3 class="creds__label">Education</h3>
+          <div class="cred-item">
+            <span class="cred-item__name">BE, Electronics Engineering
+              <span class="cred-item__sub">Sri Sairam College of Engineering (VTU University) · Bengaluru</span>
+            </span>
+            <span class="cred-item__meta">2018 — 2022</span>
+          </div>
+
+          <h3 class="creds__label" style="margin-top:2.6rem">Publications</h3>
+          <div class="pub-item">
+            <div class="pub-item__title">Istio Multi-cluster on Different Networks and Cloud Providers</div>
+            <div class="pub-item__meta">Medium · 2024</div>
+          </div>
+          <div class="pub-item">
+            <div class="pub-item__title">Adding Additional Pod IPv4 Address Ranges to a GKE Cluster</div>
+            <div class="pub-item__meta">Medium · 2025</div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- ============================================================= -->
-    <!-- CONTACT — single elegant LinkedIn CTA (only contact method)   -->
-    <!-- ============================================================= -->
+    <!-- ================= CONNECT ================= -->
     <section class="section connect" id="connect">
-      <div class="connect__inner reveal">
+      <div class="connect__inner">
         <span class="section__index">06</span>
         <h2 class="connect__title">Let's connect.</h2>
-        <p class="connect__text" id="connectText"></p>
-        <a href="#" class="connect__cta" id="connectCta" target="_blank" rel="noopener noreferrer">
+        <p class="connect__text">
+          LinkedIn is the best place to reach me — for a conversation, a
+          connection, or just to say hello.
+        </p>
+        <a class="connect__cta" href="https://www.linkedin.com/in/parthaofficial/" target="_blank" rel="noopener noreferrer">
           <span>Find me on LinkedIn</span>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5"
@@ -164,25 +407,18 @@
         </a>
       </div>
     </section>
+
   </main>
 
-  <!-- ============================================================= -->
-  <!-- FOOTER                                                        -->
-  <!-- ============================================================= -->
+  <!-- ================= FOOTER ================= -->
   <footer class="footer">
-    <div class="hairline"></div>
     <div class="footer__row">
-      <span id="footerName"></span>
-      <span id="footerNote">Built with care · GitHub Pages</span>
+      <span class="footer__name">© 2026 Parthasarathy T</span>
+      <span>Built with care · GitHub Pages</span>
     </div>
   </footer>
 
-  <!-- ============================================================= -->
-  <!-- SCRIPTS — GSAP + ScrollTrigger via CDN, then data, then app   -->
-  <!-- ============================================================= -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/main.js"></script>
+  <!-- Only JS: mobile menu toggle. Page works fully without it. -->
+  <script src="assets/js/nav.js"></script>
 </body>
 </html>

@@ -1,0 +1,58 @@
+/* ==========================================================================
+   03-about.css — About paragraphs + stats strip
+   ========================================================================== */
+
+.about {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 64ch;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-weight: 300;
+  color: var(--text);
+}
+.about p { opacity: 0.9; }
+
+/* First paragraph is a serif "pull quote" */
+.about p:first-child {
+  font-family: var(--font-head);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2.8vw, 1.65rem);
+  line-height: 1.5;
+  color: var(--platinum);
+  opacity: 1;
+}
+
+/* Stats strip — proper 4-column grid with hairline dividers */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+  background: var(--gold-line);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.stat {
+  background: var(--bg-top);
+  padding: 2rem 1.4rem;
+  text-align: center;
+}
+.stat__value {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  color: var(--gold);
+  line-height: 1;
+}
+.stat__label {
+  margin-top: 0.7rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+@media (max-width: 720px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}

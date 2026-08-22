@@ -1,0 +1,76 @@
+/* ==========================================================================
+   05-projects.css — Case-study project cards (glass surfaces)
+   ========================================================================== */
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: clamp(1.2rem, 3vw, 2rem);
+}
+
+.project {
+  position: relative;
+  padding: clamp(1.8rem, 3vw, 2.6rem);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.4s ease, border-color 0.4s ease,
+              box-shadow 0.4s ease;
+}
+.project:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 169, 110, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.project__client {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.project__title {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2.6vw, 1.65rem);
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.project__block { margin-bottom: 1.1rem; }
+.project__block-label {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--platinum);
+  opacity: 0.65;
+  margin-bottom: 0.35rem;
+}
+.project__block p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.project__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--gold-line);
+}
+.tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  color: var(--platinum);
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--gold-line);
+  border-radius: 100px;
+  background: rgba(201, 169, 110, 0.05);
+}

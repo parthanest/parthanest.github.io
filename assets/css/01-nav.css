@@ -1,0 +1,124 @@
+/* ==========================================================================
+   01-nav.css — Fixed top navigation + mobile menu + footer
+   ========================================================================== */
+
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem var(--gutter);
+  background: rgba(10, 14, 20, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--gold-line);
+}
+
+.nav__brand {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+.nav__brand span { color: var(--gold); }
+
+.nav__links {
+  display: flex;
+  gap: 2.2rem;
+}
+.nav__link {
+  position: relative;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -6px;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.35s ease;
+}
+.nav__link:hover { color: var(--text); }
+.nav__link:hover::after { width: 100%; }
+
+.nav__cta {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 0.55rem 1.2rem;
+  border: 1px solid var(--gold-line);
+  border-radius: 100px;
+  transition: all 0.35s ease;
+}
+.nav__cta:hover {
+  background: var(--gold);
+  color: var(--bg-top);
+  border-color: var(--gold);
+}
+
+/* Mobile toggle */
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.nav__toggle span {
+  width: 26px; height: 1.5px;
+  background: var(--text);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.nav.is-open .nav__toggle span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+.nav.is-open .nav__toggle span:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
+
+/* ---- Footer ----------------------------------------------------------- */
+.footer {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 2rem var(--gutter) 3.5rem;
+}
+.footer__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--gold-line);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.footer__row .footer__name { color: var(--platinum); }
+
+/* ---- Mobile ----------------------------------------------------------- */
+@media (max-width: 860px) {
+  .nav__cta { display: none; }
+  .nav__toggle { display: flex; }
+
+  .nav__links {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    gap: 1.6rem;
+    padding: 2rem var(--gutter);
+    background: rgba(10, 14, 20, 0.97);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--gold-line);
+  }
+  .nav.is-open .nav__links { display: flex; }
+  .nav__link { font-size: 0.95rem; }
+}
